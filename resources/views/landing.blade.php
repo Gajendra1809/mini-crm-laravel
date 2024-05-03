@@ -28,21 +28,23 @@
             /* Set maximum width */
             animation: slideInOut 0.6s forwards;
         }
+
         .popup-container2 {
-position: fixed;
-top: 0;
-left: 80%;
-transform: translateX(-30%);
-background-color: green;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 10px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-z-index: 9999;
-width: 20%;
-max-width: 400px; /* Set maximum width */
-animation: slideInOut2 0.6s forwards;
-}
+            position: fixed;
+            top: 0;
+            left: 80%;
+            transform: translateX(-30%);
+            background-color: green;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            width: 20%;
+            max-width: 400px;
+            /* Set maximum width */
+            animation: slideInOut2 0.6s forwards;
+        }
 
         @keyframes slideInOut {
 0% {
@@ -52,23 +54,37 @@ animation: slideInOut2 0.6s forwards;
     top: 20%;
 }
 }
-.formstyle input,select {
-width: 70%;
-margin-bottom: 10px;
-padding: 5px;
-border: 1px solid #ccc;
-border-radius: 5px;
-box-sizing: border-box;
-}
 
-.formstyle button {
-width: 100%;
-padding: 10px;
-border: none;
-color: white;
-cursor: pointer;
-border-radius: 5px;
-}
+        .formstyle input,
+        select {
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .formstyle button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .msgpopup {
+            position: fixed;
+            top: 0;
+            left: 80%;
+            transform: translateX(-30%);
+            z-index: 9999;
+            width: 20%;
+            max-width: 400px;
+            /* Set maximum width */
+            animation: slideInOut2 0.6s forwards;
+        }
 
     </style>
 
@@ -92,43 +108,55 @@ border-radius: 5px;
             </ul>
 
         </div>
-        <h6 class="mt-2">{{ auth()->user()->name }}&nbsp;&nbsp;</h6>
-        <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
-                class="text-danger">Logout</a></button>&nbsp;&nbsp;
+        @guest
+            <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("login.get") }}"
+                    class="text-danger">Login</a></button>&nbsp;&nbsp;
+        @endguest
+        @auth
+            <h6 class="mt-2">{{ auth()->user()->name }}&nbsp;&nbsp;</h6>
+            <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
+                    class="text-danger">Logout</a></button>&nbsp;&nbsp;
+        @endauth
     </nav><br><br><br><br>
-        <!-- This is to handle messages sent through session -->
-        @if(session()->has('success'))
-        <h5 class="popup-container2">
-            {{ session('success') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👍</h5>
+    <!-- This is to handle messages sent through session -->
+    @if(session()->has('success'))
+        <div class="alert alert-success msgpopup">
+            <strong>Success!</strong> {{ session('success') }}👍
+        </div>
     @endif
     @if(session()->has('error'))
-        <h5 class="popup-container2">
-            {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+        <div class="alert alert-danger msgpopup">
+            <strong>Something went wrong!</strong> {{ session('error') }}
+        </div>
     @endif
 
     <div style="display: flex;justify-content: center;align-items: center;margin-left: 150px;margin-top: 100px;">
-    <div class="row mx-auto">
-        <div class="col-sm-5">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Company Manipulation</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="{{route('company.create')}}" class="btn btn-primary btn-sm">Add Company</a>
-                    <a href="{{route('company.index')}}" class="btn btn-primary btn-sm">Company Dashboard</a>
+        <div class="row mx-auto">
+            <div class="col-sm-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Company Manipulation</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="{{ route('company.create') }}" class="btn btn-primary btn-sm">Add
+                            Company</a>
+                        <a href="{{ route('company.index') }}" class="btn btn-primary btn-sm">Company
+                            Dashboard</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Manipulation</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="{{ route('employee.create') }}" class="btn btn-primary btn-sm">Add
+                            Employee</a>
+                        <a href="{{ route('employee.index') }}"
+                            class="btn btn-primary btn-sm">Employee Dashboard</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-5">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Employee Manipulation</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="{{route('employee.create')}}" class="btn btn-primary btn-sm">Add Employee</a>
-                    <a href="{{route('employee.index')}}" class="btn btn-primary btn-sm">Employee Dashboard</a>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 
     <div class="popup-container" id="addcomform">
@@ -143,7 +171,7 @@ border-radius: 5px;
             <input type="file" id="logo" name="logo" required><br>
             <label for="website">Website:</label>
             <input type="text" id="website" name="website" required><br>
-           
+
             <div style="display:flex;gap: 3px">
                 <button type="submit" style="background-color: green;">Submit</button>
                 <button type="button" onclick="opencompanyform()" style="background-color: red;">Cancel</button>
@@ -154,19 +182,19 @@ border-radius: 5px;
 
 
     <div class="popup-container" id="addempform">
-        <form id="popup-form" class="formstyle" action="{{route('employee.store')}}" method="POST" >
+        <form id="popup-form" class="formstyle" action="{{ route('employee.store') }}" method="POST">
             @csrf
             First Name: <input type="text" name="fname" id="fname"><br>
             Last Name: <input type="text" name="lname" id="lname"><br>
             Email: <input type="email" name="email" id="email"><br>
             Phone: <input type="text" name="phone" id="phone"><br>
-            Company: 
-    <select name="company_id" id="">
-        <option value=""></option>
-        @foreach ($companies as $c)
-            <option value="{{$c->id}}">{{$c->name}}</option>
-        @endforeach
-    </select><br><br><br>
+            Company:
+            <select name="company_id" id="">
+                <option value=""></option>
+                @foreach($companies as $c)
+                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                @endforeach
+            </select><br><br><br>
 
             <div style="display:flex;gap: 3px">
                 <button type="submit" style="background-color: green;">Submit</button>
@@ -200,6 +228,7 @@ border-radius: 5px;
                 form.style.display = "none";
             }
         }
+
     </script>
 
 </body>

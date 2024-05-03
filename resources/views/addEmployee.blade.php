@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -12,44 +13,42 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>\
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<style>
-    .formstyle input {
-width: 70%;
-margin-bottom: 10px;
-padding: 5px;
-border: 1px solid #ccc;
-border-radius: 5px;
-box-sizing: border-box;
-}
+    <style>
+        .formstyle input {
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-.formstyle button {
-width: 100%;
-padding: 10px;
-border: none;
-color: white;
-cursor: pointer;
-border-radius: 5px;
-}
+        .formstyle button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-        .popup-container2 {
+        .msgpopup {
             position: fixed;
             top: 0;
             left: 80%;
             transform: translateX(-30%);
-            background-color: green;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 9999;
             width: 20%;
             max-width: 400px;
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
         }
+        .error{
+            color: red;
+        }
 
 
-@keyframes slideInOut2 {
+        @keyframes slideInOut2 {
 0% {
     top: -100%;
 }
@@ -57,8 +56,10 @@ border-radius: 5px;
     top: 10%;
 }
 }
-</style>
+
+    </style>
 </head>
+
 <body>
     <!-- This is Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
@@ -76,9 +77,9 @@ border-radius: 5px;
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('employee.index')}}">Employee Dashboard</a>
+                    <a class="nav-link" href="{{ route('employee.index') }}">Employee Dashboard</a>
                 </li>
-                
+
 
             </ul>
 
@@ -89,45 +90,48 @@ border-radius: 5px;
     </nav><br><br><br><br>
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
-        <h5 class="popup-container2">
-            {{ session('success') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👍</h5>
+        <div class="alert alert-success msgpopup">
+            <strong>Success!</strong> {{ session('success') }}👍
+        </div>
     @endif
     @if(session()->has('error'))
-        <h5 class="popup-container2">
-            {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+        <div class="alert alert-danger msgpopup">
+            <strong>Something went wrong!</strong> {{ session('error') }}
+        </div>
     @endif
 
     <h4 style="margin-left:50px">Add Employee details :-</b></h5><br><br><br>
 
-        <form id="popup-form" class="formstyle container" action="{{route('employee.store')}}" method="POST" >
+        <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
+            method="POST">
             @csrf
-            First Name: <input type="text" name="fname" id="fname" value="{{old('fname')}}"><br>
-            @if ($errors->has('fname'))
-                <p>{{$errors->first('fname')}}</p>
+            First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+            @if($errors->has('fname'))
+                <p class="error">*{{ $errors->first('fname') }}</p>
             @endif
-            Last Name: <input type="text" name="lname" id="lname" value="{{old('lname')}}"><br>
-            @if ($errors->has('lname'))
-                <p>{{$errors->first('lname')}}</p>
+            Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+            @if($errors->has('lname'))
+                <p class="error">*{{ $errors->first('lname') }}</p>
             @endif
-            Email: <input type="email" name="email" id="email" value="{{old('email')}}"><br>
-            @if ($errors->has('email'))
-                <p>{{$errors->first('email')}}</p>
+            Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+            @if($errors->has('email'))
+                <p class="error">*{{ $errors->first('email') }}</p>
             @endif
-            Phone: <input type="text" name="phone" id="phone" value="{{old('phone')}}"><br>
-            @if ($errors->has('phone'))
-                <p>{{$errors->first('phone')}}</p>
+            Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+            @if($errors->has('phone'))
+                <p class="error">*{{ $errors->first('phone') }}</p>
             @endif
             Company:
-    <select class="js-example-basic-single" name="company_id">
-    <option value=""></option>
-    @foreach ($company as $c)
-        <option value="{{$c->id}}">{{$c->name}}</option>
-    @endforeach
-</select>
+            <select class="js-example-basic-single" name="company_id" >
+                <option value=""></option>
+                @foreach($company as $c)
+                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                @endforeach
+            </select>
 
 
-    @if ($errors->has('company_id'))
-                <p>{{$errors->first('company_id')}}</p>
+            @if($errors->has('company_id'))
+                <p class="error">*{{ $errors->first('company_id') }}</p>
             @endif
             <br><br><br>
 
@@ -137,9 +141,11 @@ border-radius: 5px;
 
         </form>
         <script>
-             $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
+            $(document).ready(function () {
+                $('.js-example-basic-single').select2();
+            });
+
         </script>
 </body>
+
 </html>

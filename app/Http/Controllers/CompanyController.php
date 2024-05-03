@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
 use App\Notifications\NewCompanyRegistration;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Str;
@@ -15,9 +16,13 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $company = Company::all();
+        if($request->has('query')){
+            $companysearch = Company::where('name','like','%'.$request->get('query').'%')->get();
+            return json_encode($companysearch);
+        }
+        $company = Company::paginate(10);
         return view("companies", compact("company"));
     }
 
@@ -53,9 +58,9 @@ class CompanyController extends Controller
         try{
         $company->save();
         //Notification::route('mail', $company->email)->notify(new NewCompanyRegistration($name));
-        return redirect()->route('company.index')->with('success', 'Company created successfully');
+        return redirect()->back()->with('success', 'Company created successfully');
         }catch(\Exception $e){
-        return redirect()->route('company.index')->with('error', 'Company not created');
+        return redirect()->route('company.create')->withInput()->with('error', 'Company not created');
         }
     }
 

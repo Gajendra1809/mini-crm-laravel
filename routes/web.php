@@ -20,10 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::view('/login','login')->name('login.get');
 Route::post("/login", [AuthController::class,"login"])->name('login.post');
 Route::get('/logout', [AuthController::class,'logout'])->name('logout');
+Route::get('/',[AuthController::class,'landing'])->name('landing');
 
 Route::middleware('auth')->group(function(){
-
-    Route::get('/landing',[AuthController::class,'landing'])->name('landing');
 
     Route::resource('/company',CompanyController::class);
     

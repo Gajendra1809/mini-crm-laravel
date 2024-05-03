@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -10,34 +11,27 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <style>
-         .popup-container {
-display: none;
-position: fixed;
-top: 0;
-left: 50%;
-transform: translateX(-50%);
-background-color: white;
-padding: 20px;
-border: 1px solid #ccc;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-z-index: 9999;
-width: 50%;
-max-width: 400px; /* Set maximum width */
-animation: slideInOut 0.6s forwards;
-}
-@keyframes slideInOut {
-0% {
-    top: -100%;
-}
-100% {
-    top: 20%;
-}
-}
-.popup-container2 {
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            width: 50%;
+            max-width: 400px;
+            /* Set maximum width */
+            animation: slideInOut 0.6s forwards;
+        }
+        .popup-container2 {
             position: fixed;
             top: 0;
             left: 80%;
@@ -53,9 +47,12 @@ animation: slideInOut 0.6s forwards;
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
         }
+        .error{
+            color:red; class="error"
+        }
+       
 
-   
-@keyframes slideInOut2 {
+        @keyframes slideInOut2 {
 0% {
     top: -100%;
 }
@@ -63,27 +60,58 @@ animation: slideInOut 0.6s forwards;
     top: 10%;
 }
 }
-/* Styling for the form */
-
-.formstyle input {
-width: 70%;
-margin-bottom: 10px;
-padding: 5px;
-border: 1px solid #ccc;
-border-radius: 5px;
-box-sizing: border-box;
+@keyframes slideInOut {
+0% {
+    top: -100%;
+}
+100% {
+    top: 20%;
+}
 }
 
-.formstyle button {
-width: 100%;
-padding: 10px;
-border: none;
-color: white;
-cursor: pointer;
-border-radius: 5px;
+        /* Styling for the form */
+
+        .formstyle input {
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .formstyle button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .msgpopup {
+            position: fixed;
+            top: 0;
+            left: 80%;
+            transform: translateX(-30%);
+            z-index: 9999;
+            width: 20%;
+            max-width: 400px;
+            /* Set maximum width */
+            animation: slideInOut2 0.6s forwards;
+        }
+        @keyframes slideInOut2 {
+0% {
+    top: -100%;
 }
+100% {
+    top: 10%;
+}
+}
+
     </style>
 </head>
+
 <body>
     <!-- This is Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
@@ -101,7 +129,8 @@ border-radius: 5px;
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{route("employee.create")}}" class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
+                    <a href="{{ route("employee.create") }}"
+                        class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
                 </li>
 
             </ul>
@@ -112,116 +141,136 @@ border-radius: 5px;
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
     @if(session()->has('success'))
-        <h5 class="popup-container2">
-            {{ session('success') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👍</h5>
+        <div class="alert alert-success msgpopup">
+            <strong>Success!</strong> {{ session('success') }}👍
+        </div>
     @endif
     @if(session()->has('error'))
-        <h5 class="popup-container2">
-            {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+        <div class="alert alert-danger msgpopup">
+            <strong>Something went wrong!</strong> {{ session('error') }}
+        </div>
     @endif
     <h4 style="margin-left:50px">Employee Dashboard :-</b></h5><br><br><br>
 
-<form id="deleteform" action="" method="POST" style="display: none;">
-                @csrf
-                @method('DELETE')
-            </form>
-<div class="container">
-    
-    <table class="table table-bordered yajra-datatable">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Company</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-<div class="popup-container" id="birthdayForm">
+        <form id="deleteform" action="" method="POST" style="display: none;">
+            @csrf
+            @method('DELETE')
+        </form>
+        <div class="container">
+
+            <table class="table table-bordered yajra-datatable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="popup-container" id="birthdayForm">
             <form id="popup-form" class="formstyle" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 @csrf
-    First Name: <input type="text" name="fname" id="fname"><br>
-    @if ($errors->has('fname'))
-                <p>{{$errors->first('fname')}}</p>
-            @endif
-    Last Name: <input type="text" name="lname" id="lname"><br>
-    @if ($errors->has('lname'))
-                <p>{{$errors->first('lname')}}</p>
-            @endif
-    Email: <input type="email" name="email" id="email"><br>
-    @if ($errors->has('email'))
-                <p>{{$errors->first('email')}}</p>
-            @endif
-    Phone: <input type="text" name="phone" id="phone"><br>
-    @if ($errors->has('phone'))
-                <p>{{$errors->first('phone')}}</p>
-            @endif
+                First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+                @if($errors->has('fname'))
+                    <p class="error">{{ $errors->first('fname') }}</p>
+                @endif
+                Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+                @if($errors->has('lname'))
+                    <p class="error">{{ $errors->first('lname') }}</p>
+                @endif
+                Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+                @if($errors->has('email'))
+                    <p class="error">{{ $errors->first('email') }}</p>
+                @endif
+                Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+                @if($errors->has('phone'))
+                    <p class="error">{{ $errors->first('phone') }}</p>
+                @endif
                 <div style="display:flex;gap: 3px">
-                <button type="submit" style="background-color: green;">Submit</button>
-                <button type="button" onclick="openform()" style="background-color: red;">Cancel</button>
-            </div>
+                    <button type="submit" style="background-color: green;">Submit</button>
+                    <button type="button" onclick="window.location.reload()"
+                        style="background-color: red;">Cancel</button>
+                </div>
 
             </form>
-            </div>
+        </div>
 
 
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
-  $(function () {
+    $(function () {
 
-    var table = $('.yajra-datatable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('employee.index') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'fname', name: 'fname'},
-            {data: 'lname', name: 'lname'},
-            {data: 'company', name: 'company'},
-            {data: 'email', name: 'email'},
-            {data: 'phone', name: 'phone'},
-            {
-                data: 'action', 
-                name: 'action', 
-                orderable: true, 
-                searchable: true
-            },
-        ]
+        var table = $('.yajra-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('employee.index') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'fname',
+                    name: 'fname'
+                },
+                {
+                    data: 'lname',
+                    name: 'lname'
+                },
+                {
+                    data: 'company',
+                    name: 'company'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ]
+        });
+
     });
 
-  });
-
-  function deletefun(id){
-    console.log(id);
-    if(confirm('Are you sure you want to remove this Employee?'))
-    {
-        event.preventDefault(); 
-        form=document.getElementById('deleteform');
-        form.action = "{{ route('employee.destroy', '') }}/" + id;
-        form.submit();
+    function deletefun(id) {
+        console.log(id);
+        if (confirm('Are you sure you want to remove this Employee?')) {
+            event.preventDefault();
+            form = document.getElementById('deleteform');
+            form.action = "{{ route('employee.destroy', '') }}/" + id;
+            form.submit();
+        }
     }
-  }
 
-  //Pop form to add bithday
-  openform();
-        function openform(e) {
-            var form = document.getElementById("birthdayForm");
-            if (form.style.display === "none") {
-                form.style.display = "block";
-                console.log(e.id);
+    //Pop form to add bithday
+    openform();
+
+    function openform(e) {
+        var form = document.getElementById("birthdayForm");
+        if (form.style.display === "none") {
+            form.style.display = "block";
+            console.log(e.id);
             if (e) {
                 // If `c` is provided, populate the form fields with its data
                 document.getElementById("fname").value = e.fname;
@@ -229,17 +278,25 @@ border-radius: 5px;
                 document.getElementById("email").value = e.email;
                 document.getElementById("phone").value = e.phone;
                 // Set the action attribute of the form
-                document.getElementById("popup-form").action = "{{ route('employee.update', '') }}/" + e.id;
+                document.getElementById("popup-form").action =
+                    "{{ route('employee.update', '') }}/" + e.id;
+                localStorage.setItem('id', e.id);
             }
         } else {
             form.style.display = "none";
             // If the form is closed, reset the form fields and action attribute
             document.getElementById("popup-form").reset();
             document.getElementById("popup-form").action = "";
-            }
         }
-        if("{{$errors->has('fname')}}"||"{{$errors->has('email')}}"||"{{$errors->has('lname')}}"||"{{$errors->has('phone')}}"){
-        openeditform();
-       }
+    }
+    if ("{{ $errors->has('fname') }}" || "{{ $errors->has('email') }}" ||
+        "{{ $errors->has('lname') }}" || "{{ $errors->has('phone') }}") {
+        openform();
+        document.getElementById("popup-form").action =
+            "{{ route('employee.update', '') }}/" + localStorage.getItem(
+            'id');
+    }
+
 </script>
+
 </html>

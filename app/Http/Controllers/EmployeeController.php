@@ -46,7 +46,7 @@ class EmployeeController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
             }
-            return view('employeedash');
+            return view('employeeDash');
         }
 
         
@@ -81,9 +81,9 @@ class EmployeeController extends Controller
         $employee->company_id = $company_id;
         try{
         $employee->save();
-        return redirect()->back()->with('success', 'Employee created successfully');
+        return redirect()->route('employee.create')->with('success', 'Employee created successfully');
         }catch(\Exception $e){
-        return redirect()->back()->with('error', $e->getMessage());
+        return redirect()->route('employee.create')->withInput()->with('error', 'Employee not created');
         }
     }
 
