@@ -6,6 +6,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
 {
@@ -16,13 +17,39 @@ class EmployeeController extends Controller
     {
         $companyId = $request->id;
         if ($companyId) {
-            $employees = Employee::where('company_id', $companyId)->get();
+            //$employees = Employee::where('company_id', $companyId)->get();
             $company=Company::find($companyId);
+            if ($request->ajax()) {
+                $data = Employee::where('company_id', $companyId)->get();
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn = '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('employees',compact('company'));
         } else {
-            $employees = Employee::all();
-            return view("employeedash",compact('employees'));
+            if ($request->ajax()) {
+                $data = Employee::latest()->get();
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn = '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
+                        return $actionBtn;
+                    })
+                    ->addColumn('company',function($row){
+                        return $row->company->name;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('employeedash');
         }
-        return view("employees", compact('employees','company'));
+
+        
     }
 
     /**

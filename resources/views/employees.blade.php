@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <style>
          .popup-container {
 display: none;
@@ -81,7 +84,6 @@ border-radius: 5px;
 }
     </style>
 </head>
-
 <body>
     <!-- This is Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
@@ -117,40 +119,30 @@ border-radius: 5px;
         <h5 class="popup-container2">
             {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
     @endif
-    <h5 style="margin-left:50px">Here are all the employees of:- <b>{{$company->name}}</b></h5><br><br><br>
-    <table class="table container">
-        <thead>
-            <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-            </tr>
-        </thead>
-        <tbody>
-        @if($employees->isEmpty())
-            <h5 style="margin-left:100px">No Employees found!</h5><br><br>
-        @endif
-            @foreach($employees as $e)
-            <tr>
-                
-                <td>{{ $e->fname }}</td>
-                <td>{{ $e->lname }}</td>
-                <td>{{ $e->email }}</td>
-                <td>{{ $e->phone }}</td>
-                <td><button onclick="openform({{json_encode($e)}})">Edit</button></td>
-                <form id="delete-form-{{ $e->id }}" action="{{ route('employee.destroy', $e->id) }}" method="POST" style="display: none;">
+    <h4 style="margin-left:50px">Here are the Employee of :- {{$company->name}}</b></h5><br><br><br>
+
+<form id="deleteform" action="" method="POST" style="display: none;">
                 @csrf
                 @method('DELETE')
             </form>
-            <td><button onclick="if(confirm('Are you sure you want to remove this Employee?')) { event.preventDefault(); document.getElementById('delete-form-{{ $e->id }}').submit(); }">Delete</button>
-            </td>
-            
+<div class="container">
+    
+    <table class="table table-bordered yajra-datatable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
             </tr>
-            @endforeach
+        </thead>
+        <tbody>
         </tbody>
     </table>
-    <div class="popup-container" id="birthdayForm">
+</div>
+<div class="popup-container" id="birthdayForm">
             <form id="popup-form" class="formstyle" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -179,10 +171,50 @@ border-radius: 5px;
             </form>
             </div>
 
-    <script>
 
-        //Pop form to add bithday
-        openform();
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+
+    var table = $('.yajra-datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('employee.index',['id' => $company->id]) }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'fname', name: 'fname'},
+            {data: 'lname', name: 'lname'},
+            {data: 'email', name: 'email'},
+            {data: 'phone', name: 'phone'},
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ]
+    });
+
+  });
+
+  function deletefun(id){
+    console.log(id);
+    if(confirm('Are you sure you want to remove this Employee?'))
+    {
+        event.preventDefault(); 
+        form=document.getElementById('deleteform');
+        form.action = "{{ route('employee.destroy', '') }}/" + id;
+        form.submit();
+    }
+  }
+
+  //Pop form to add bithday
+  openform();
         function openform(e) {
             var form = document.getElementById("birthdayForm");
             if (form.style.display === "none") {
@@ -207,8 +239,8 @@ border-radius: 5px;
         if("{{$errors->has('fname')}}"||"{{$errors->has('email')}}"||"{{$errors->has('lname')}}"||"{{$errors->has('phone')}}"){
         openeditform();
        }
-
-    </script>
-</body>
-
+</script>
 </html>
+
+
+

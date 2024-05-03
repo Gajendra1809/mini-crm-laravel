@@ -95,7 +95,9 @@ border-radius: 5px;
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
                 </li>
-              
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
+                </li>
 
             </ul>
 
@@ -113,6 +115,7 @@ border-radius: 5px;
         <h5 class="popup-container2">
             {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
     @endif
+    <h4 style="margin-left:50px">Add Company details :-</b></h5><br><br><br>
 <form class="formstyle container" action="{{ route('company.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf

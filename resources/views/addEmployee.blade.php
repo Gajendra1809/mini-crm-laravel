@@ -97,6 +97,8 @@ border-radius: 5px;
             {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
     @endif
 
+    <h4 style="margin-left:50px">Add Employee details :-</b></h5><br><br><br>
+
         <form id="popup-form" class="formstyle container" action="{{route('employee.store')}}" method="POST" >
             @csrf
             First Name: <input type="text" name="fname" id="fname" value="{{old('fname')}}"><br>

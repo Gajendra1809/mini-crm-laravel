@@ -21,8 +21,12 @@ Route::view('/login','login')->name('login.get');
 Route::post("/login", [AuthController::class,"login"])->name('login.post');
 Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 
-Route::get('/landing',[AuthController::class,'landing'])->middleware('auth')->name('landing');
+Route::middleware('auth')->group(function(){
 
-Route::resource('/company',CompanyController::class);
+    Route::get('/landing',[AuthController::class,'landing'])->name('landing');
 
-Route::resource('/employee',EmployeeController::class);
+    Route::resource('/company',CompanyController::class);
+    
+    Route::resource('/employee',EmployeeController::class);
+    
+});
