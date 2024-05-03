@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Models\Company;
 
 class EmployeeController extends Controller
 {
@@ -15,11 +17,12 @@ class EmployeeController extends Controller
         $companyId = $request->id;
         if ($companyId) {
             $employees = Employee::where('company_id', $companyId)->get();
+            $company=Company::find($companyId);
         } else {
             $employees = Employee::all();
+            return view("employeedash",compact('employees'));
         }
-    
-        return view("employees", ['emp' => $employees]);
+        return view("employees", compact('employees','company'));
     }
 
     /**
@@ -27,14 +30,16 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $company = Company::all();
+        return view("addEmployee", compact("company"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
+        $request->validated();
         $fname= $request->fname;
         $lname= $request->lname;
         $email= $request->email;
@@ -49,10 +54,9 @@ class EmployeeController extends Controller
         $employee->company_id = $company_id;
         try{
         $employee->save();
-        return redirect()->route('home')->with('success', 'Employee created successfully');
+        return redirect()->back()->with('success', 'Employee created successfully');
         }catch(\Exception $e){
-        // Redirect or return response
-        return redirect()->route('home')->with('error', $e->getMessage());
+        return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -77,6 +81,12 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            "fname"=>"required",
+            "lname"=>"required",
+            "email"=>"email",
+            "phone"=>"required|min:10"
+        ]);
         $emp= Employee::find($id);
         $emp->fname = $request->fname;
         $emp->lname = $request->lname;
@@ -86,9 +96,7 @@ class EmployeeController extends Controller
             $emp->save();
             return redirect()->back()->with('success', 'Employee updated successfully');
           }catch(\Exception $e){
-          // Redirect or return response\
-          return $e->getMessage();
-          return redirect()->route('home')->with('error', 'Employee not updated');
+          return redirect()->back()->with('error', 'Employee not updated');
           }
     }
 

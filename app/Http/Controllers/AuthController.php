@@ -12,9 +12,9 @@ class AuthController extends Controller
       
         $cred= $request->only(["email","password"]);
       if(Auth::attempt($cred)){
-        return redirect()->route('home');
+        return redirect()->route('landing');
       }
-      return "Wrong";
+      return redirect('/login')->with('error','Please provide correct credentials...');
     }
 
     public function logout(Request $request) {
@@ -22,8 +22,8 @@ class AuthController extends Controller
         return redirect()->route('login.get');
     }
 
-    public function home(Request $request){
+    public function landing(Request $request){
         $companies=Company::all();
-        return view('home',compact('companies'));
+        return view('landing',compact('companies'));
     }
 }

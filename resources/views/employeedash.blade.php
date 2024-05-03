@@ -117,12 +117,13 @@ border-radius: 5px;
         <h5 class="popup-container2">
             {{ session('error') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
     @endif
-    <h5 style="margin-left:50px">Here are all the employees of:- <b>{{$company->name}}</b></h5><br><br><br>
+    <h4 style="margin-left:50px">Employee Dashboard :-</b></h5><br><br><br>
     <table class="table container">
         <thead>
             <tr>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
+                <th scope="col">Company</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
             </tr>
@@ -136,6 +137,7 @@ border-radius: 5px;
                 
                 <td>{{ $e->fname }}</td>
                 <td>{{ $e->lname }}</td>
+                <td>{{ $e->company->name }}</td>
                 <td>{{ $e->email }}</td>
                 <td>{{ $e->phone }}</td>
                 <td><button onclick="openform({{json_encode($e)}})">Edit</button></td>
