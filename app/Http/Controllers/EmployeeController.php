@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Yajra\DataTables\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -146,4 +147,6 @@ class EmployeeController extends Controller
         $employee->delete();
         return redirect()->back()->with('success','Employee deleted');
     }
+
+    
 }

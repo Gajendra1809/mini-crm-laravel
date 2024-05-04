@@ -196,6 +196,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //datatables
         Yajra\DataTables\DataTablesServiceProvider::class,
+        
+        
 
     ],
 
