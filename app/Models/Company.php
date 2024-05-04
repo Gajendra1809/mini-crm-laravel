@@ -13,7 +13,15 @@ class Company extends Model
 
     protected $table="companies";
 
-    public function empolyee(){
+    public function employee(){
         return $this->hasMany(Employee::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function($company) {
+            $company->employee()->delete();
+        });
     }
 }

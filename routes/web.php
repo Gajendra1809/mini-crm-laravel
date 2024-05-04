@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Route;
 
 /*

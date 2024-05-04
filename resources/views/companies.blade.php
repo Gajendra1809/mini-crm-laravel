@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .popup-container {
             display: none;
@@ -79,7 +79,22 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
+        .btn-search {
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #1c1c1c;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+  
     </style>
 </head>
 
@@ -127,17 +142,27 @@
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
     @endif
-    @if($company->isEmpty())
-        <h4>No Companies found!</h4>
-    @endif
+    
 
-    <form id="searchForm">
-    <input type="text" id="searchInput" placeholder="Search...">
-</form>
-
-<div id="searchResults">
-    <!-- Display search results here -->
+    <div class="container">
+    <form action="{{ route('company.index') }}" method="GET" id="searchform">
+        <div class="input-group">
+            <input type="text" id="search" class="form-control" name="search" placeholder="Search by Company name..." value="{{ request('search') }}">
+            <span class="input-group-btn">
+                <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i> Search</button>
+            </span>
+            <span class="crossbtn">
+                <button type="button" onclick="document.getElementById('search').value='';document.getElementById('searchform').submit();"  class="btn btn-clear crossbtn">X</button>
+            </span>
+        </div>
+    </form>
 </div>
+    </form>
+</div><br>
+@if($company->isEmpty())
+        <h4 style="margin-left:120px;">No Companies found!</h4>
+    @endif
+    <br><br>
 
     <table class="table container table table-striped table-hover">
         <thead>
@@ -145,7 +170,7 @@
                 <th scope="col">Logo</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Website</th>
+                <th scope="col">Status</th>
                 <th scope="col">Employees</th>
             </tr>
 
@@ -154,9 +179,9 @@
             @foreach($company as $c)
                 <tr>
                     <td><img src="{{ $c->logo }}" alt="logo" style="width:50px;border-radius: 20px;"></td>
-                    <td>{{ $c->name }}</td>
+                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td> 
                     <td>{{ $c->email }}</td>
-                    <td><a href="{{ $c->website }}">{{ $c->website }}</a></td>
+                    <td>{{$c->deleted_at?'Inactive':'Active'}}</td>
                     <td><a
                             href="{{ route('employee.index',['id' => $c->id]) }}">Get
                             employees</a></td>
@@ -254,43 +279,6 @@
                     'id');
 
         }
-
-
-        $('#searchInput').on('input', function() {
-    var query = $(this).val();
-
-    // Send AJAX request to search endpoint
-    $.ajax({
-        url: '{{route('company.index')}}',
-        method: 'GET',
-        data: { query: query },
-        success: function(response) {
-            // Update search results on success
-            //$('#searchResults').html(response);
-            // console.log(response);
-             // Clear previous table content
-        $('#searchResults').empty();
-
-// Create table header
-var tableHeader = '<tr><th>Name</th><th>Email</th><th>Website</th></tr>';
-$('#searchResults').append(tableHeader);
-
-// Iterate over response and create table rows
-$.each(response, function(index, company) {
-    console.log(company);
-    var tableRow = '<tr>' +
-        '<td>' + company.name + '</td>' +
-        '<td>' + company.email + '</td>' +
-        '<td>' + company.website + '</td>' +
-        '</tr>';
-    $('#searchResults').append(tableRow);
-});
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-});
 
     </script>
 </body>

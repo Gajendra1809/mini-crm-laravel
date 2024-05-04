@@ -175,10 +175,9 @@
             </table>
         </div>
         <div class="popup-container" id="birthdayForm">
-            <form id="popup-form" class="formstyle" action="" method="POST" enctype="multipart/form-data">
+            <form id="popup-form" class="formstyle" action="" method="POST" >
                 @csrf
                 @method('PUT')
-                @csrf
                 First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
                 @if($errors->has('fname'))
                     <p class="error">{{ $errors->first('fname') }}</p>
@@ -270,7 +269,7 @@
         var form = document.getElementById("birthdayForm");
         if (form.style.display === "none") {
             form.style.display = "block";
-            console.log(e.id);
+            //console.log(e.id);
             if (e) {
                 // If `c` is provided, populate the form fields with its data
                 document.getElementById("fname").value = e.fname;
@@ -280,7 +279,7 @@
                 // Set the action attribute of the form
                 document.getElementById("popup-form").action =
                     "{{ route('employee.update', '') }}/" + e.id;
-                localStorage.setItem('id', e.id);
+                localStorage.setItem('eid', e.id);
             }
         } else {
             form.style.display = "none";
@@ -294,7 +293,7 @@
         openform();
         document.getElementById("popup-form").action =
             "{{ route('employee.update', '') }}/" + localStorage.getItem(
-            'id');
+            'eid');
     }
 
 </script>

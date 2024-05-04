@@ -10,9 +10,7 @@ use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $companyId = $request->id;
@@ -53,7 +51,9 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new employee.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -62,7 +62,10 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created employee in storage.
+     *
+     * @param  \App\Http\Requests\EmployeeRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EmployeeRequest $request)
     {
@@ -104,7 +107,11 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified employee in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, string $id)
     {
@@ -128,7 +135,10 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove(soft delete) the specified employee from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {

@@ -122,6 +122,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
+                </li>
                 <li>
                     <a href="{{ route("employee.create") }}"
                         class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
@@ -168,10 +171,9 @@
             </table>
         </div>
         <div class="popup-container" id="birthdayForm">
-            <form id="popup-form" class="formstyle" action="" method="POST" enctype="multipart/form-data">
+            <form id="popup-form" class="formstyle" action="" method="POST">
                 @csrf
                 @method('PUT')
-                @csrf
                 First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
                 @if($errors->has('fname'))
                     <p class="error">*{{ $errors->first('fname') }}</p>
@@ -259,7 +261,7 @@
         var form = document.getElementById("birthdayForm");
         if (form.style.display === "none") {
             form.style.display = "block";
-            console.log(e.id);
+            //console.log(e.id);
             if (e) {
                 // If `c` is provided, populate the form fields with its data
                 document.getElementById("fname").value = e.fname;
@@ -269,7 +271,7 @@
                 // Set the action attribute of the form
                 document.getElementById("popup-form").action =
                     "{{ route('employee.update', '') }}/" + e.id;
-                location.Storage.setItem('id', e.id);
+                localStorage.setItem('eid', e.id);
             }
         } else {
             form.style.display = "none";
@@ -282,8 +284,7 @@
         "{{ $errors->has('lname') }}" || "{{ $errors->has('phone') }}") {
         openform();
         document.getElementById("popup-form").action =
-            "{{ route('employee.update', '') }}/" + location.Storage.getItem(
-                'id');
+            "{{ route('employee.update', '') }}/" + localStorage.getItem('eid');
     }
 
 </script>

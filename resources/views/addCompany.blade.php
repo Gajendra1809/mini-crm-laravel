@@ -11,24 +11,54 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <style>
-        .formstyle input {
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+       .formstyle {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
 
-        .formstyle button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .formstyle label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
 
+    .formstyle input[type="text"],
+    .formstyle input[type="email"],
+    .formstyle input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .formstyle input[type="file"] {
+        padding: 8px;
+    }
+
+    .formstyle button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .formstyle button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error {
+        color: red;
+        margin-top: -5px;
+    }
         .popup-container {
             display: none;
             position: fixed;
@@ -56,12 +86,9 @@
             max-width: 400px;
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
-        }
-        .error{
-            color: red;
-        } class="error"
+        } 
 *
-        <blade @keyframes slideInOut {
+         @keyframes slideInOut {
 0% {
     top: -100%;
 }

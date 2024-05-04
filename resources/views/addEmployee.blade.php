@@ -14,23 +14,44 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <style>
-        .formstyle input {
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+       .formstyle {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
 
-        .formstyle button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .formstyle input[type="text"],
+    .formstyle input[type="email"],
+    .formstyle select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .formstyle button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .formstyle button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error {
+        color: red;
+        margin-top: -5px;
+    }
 
         .msgpopup {
             position: fixed;
@@ -43,9 +64,7 @@
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
         }
-        .error{
-            color: red;
-        }
+       
 
 
         @keyframes slideInOut2 {
@@ -102,7 +121,7 @@
 
     <h4 style="margin-left:50px">Add Employee details :-</b></h5><br><br><br>
 
-        <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
+        <!-- <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
             method="POST">
             @csrf
             First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
@@ -122,7 +141,7 @@
                 <p class="error">*{{ $errors->first('phone') }}</p>
             @endif
             Company:
-            <select class="js-example-basic-single" name="company_id" >
+            <select class="js-example-basic-single" name="company_id">
                 <option value=""></option>
                 @foreach($company as $c)
                     <option value="{{ $c->id }}">{{ $c->name }}</option>
@@ -139,7 +158,48 @@
                 <button type="submit" style="background-color: green;">Submit</button>
             </div>
 
-        </form>
+        </form> -->
+        <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}" method="POST">
+    @csrf
+    <label for="fname">First Name:</label>
+    <input type="text" name="fname" id="fname" value="{{ old('fname') }}">
+    @if($errors->has('fname'))
+        <p class="error">*{{ $errors->first('fname') }}</p>
+    @endif
+
+    <label for="lname">Last Name:</label>
+    <input type="text" name="lname" id="lname" value="{{ old('lname') }}">
+    @if($errors->has('lname'))
+        <p class="error">*{{ $errors->first('lname') }}</p>
+    @endif
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" value="{{ old('email') }}">
+    @if($errors->has('email'))
+        <p class="error">*{{ $errors->first('email') }}</p>
+    @endif
+
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" id="phone" value="{{ old('phone') }}">
+    @if($errors->has('phone'))
+        <p class="error">*{{ $errors->first('phone') }}</p>
+    @endif
+
+    <label for="company_id">Company:</label>
+    <select class="js-example-basic-single" name="company_id">
+        <option value=""></option>
+        @foreach($company as $c)
+            <option value="{{ $c->id }}">{{ $c->name }}</option>
+        @endforeach
+    </select>
+    @if($errors->has('company_id'))
+        <p class="error">*{{ $errors->first('company_id') }}</p>
+    @endif
+
+    <div style="display:flex;justify-content: center;margin-top: 20px;">
+        <button type="submit">Submit</button>
+    </div>
+</form>
         <script>
             $(document).ready(function () {
                 $('.js-example-basic-single').select2();

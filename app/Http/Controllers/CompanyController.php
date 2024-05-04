@@ -11,23 +11,29 @@ use Illuminate\Support\Str;
 use Storage;
 use Notification;
 
+
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+     /**
+     * Display a listing of the Companies.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */    public function index(Request $request)
     {
-        if($request->has('query')){
-            $companysearch = Company::where('name','like','%'.$request->get('query').'%')->get();
-            return json_encode($companysearch);
+        if ($request->has('search')) {
+            $search = strtolower($request->search);
+            $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->paginate(10);
+            return view("companies", compact("company"));
         }
         $company = Company::paginate(10);
         return view("companies", compact("company"));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Company.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -35,7 +41,10 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created company in storage.
+     *
+     * @param  \App\Http\Requests\CompanyRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CompanyRequest $request,)
     {
@@ -81,7 +90,11 @@ class CompanyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified company in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, string $id)
     {
@@ -108,12 +121,15 @@ class CompanyController extends Controller
         $company->save();
         return redirect()->back()->with('success', 'Company updated successfully');
      }catch(\Exception $e){
-        return redirect()->route('company.index')->with('error', 'Company not updated');
+        return redirect()->back()->with('error', 'Company not updated');
     }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove(soft delete) the specified company from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {
