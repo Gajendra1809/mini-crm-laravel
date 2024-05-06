@@ -21,9 +21,20 @@ class CompanyController extends Controller
      * @return \Illuminate\View\View
      */    public function index(Request $request)
     {
+        if ($request->has('status')) {
+            $status = strtolower($request->status);
+            if($status=='active'){
+                $company = Company::paginate(10);
+            }else if($status=='inactive'){
+                $company = Company::onlyTrashed()->paginate(10);
+            }else{
+                $company = Company::withTrashed()->paginate(10);
+            }
+            return view("companies", compact("company"));
+        }
         if ($request->has('search')) {
             $search = strtolower($request->search);
-            $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->paginate(10);
+            $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->withTrashed()->paginate(10);
             return view("companies", compact("company"));
         }
         $company = Company::paginate(10);
@@ -96,14 +107,9 @@ class CompanyController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(CompanyRequest $request, string $id)
     {
-        $request->validate([
-            "name"=>"required|min:5",
-            "email"=>"email",
-            "logo"=>"file|mimes:png,jpg",
-            "website"=>"required"
-        ]);
+        $request->validated();
         $company= Company::find($id);
         $company->name = $request->name;
         $company->email = $request->email;

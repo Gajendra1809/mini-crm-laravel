@@ -156,6 +156,15 @@
             </span>
         </div>
     </form>
+    <form action="{{ route('company.index') }}" method="GET" id="statusform" style="width:150px;margin-top:3px;margin-left:1145px">
+    <select name="status" class="form-select" onchange="document.getElementById('statusform').submit();" placeholder="saa">
+        <option value="">Select Status</option>
+        <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All</option>
+        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+    </select>
+</form>
+
 </div>
     </form>
 </div><br>
@@ -185,6 +194,9 @@
                     <td><a
                             href="{{ route('employee.index',['id' => $c->id]) }}">Get
                             employees</a></td>
+                    @if (!$c->deleted_at)
+                        
+                    
                     <td><button onclick="openeditform({{ json_encode($c) }})"
                             class="btn btn-primary btn-sm">Edit</button></td>
                     <td>
@@ -196,6 +208,7 @@
                         </form><a href="#" class="btn btn-danger btn-sm"
                             onclick="if(confirm('Are you sure you want to delete this company?')) { event.preventDefault(); document.getElementById('delete-form-{{ $c->id }}').submit(); }">Delete</a>
                     </td>
+                    @endif
 
                 </tr>
             @endforeach

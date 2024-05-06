@@ -230,8 +230,8 @@
                     name: 'lname'
                 },
                 {
-                    data: 'company',
-                    name: 'company'
+                    data: 'company_name',
+                    name: 'company_name'
                 },
                 {
                     data: 'email',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\EmpUpdateRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Company;
@@ -17,7 +18,7 @@ class EmployeeController extends Controller
         $companyId = $request->id;
         if ($companyId) {
             //$employees = Employee::where('company_id', $companyId)->get();
-            $company=Company::find($companyId);
+            $company=Company::withTrashed()->find($companyId);
             if ($request->ajax()) {
                 $data = Employee::where('company_id', $companyId)->get();
                 return Datatables::of($data)
@@ -39,8 +40,8 @@ class EmployeeController extends Controller
                         $actionBtn = '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
                         return $actionBtn;
                     })
-                    ->addColumn('company',function($row){
-                        return $row->company->name;
+                    ->addColumn('company_name',function($row){
+                        return $row->company?$row->company->name:'Company not found';
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -114,14 +115,9 @@ class EmployeeController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(EmpUpdateRequest $request, string $id)
     {
-        $request->validate([
-            "fname"=>"required",
-            "lname"=>"required",
-            "email"=>"email",
-            "phone"=>"required|min:10"
-        ]);
+        $request->validated();
         $emp= Employee::find($id);
         $emp->fname = $request->fname;
         $emp->lname = $request->lname;
