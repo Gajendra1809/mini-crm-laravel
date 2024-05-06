@@ -187,7 +187,7 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><img src="{{ $c->logo }}" alt="logo" style="width:50px;border-radius: 20px;"></td>
+                    <td><a href="{{route('company.show',$c->id)}}"><img src="{{ $c->logo }}" alt="logo" style="width:50px;border-radius: 20px;"></a></td>
                     <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td> 
                     <td>{{ $c->email }}</td>
                     <td>{{$c->deleted_at?'Inactive':'Active'}}</td>

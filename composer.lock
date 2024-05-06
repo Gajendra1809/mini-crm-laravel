@@ -6090,16 +6090,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.15.2",
+            "version": "v1.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "2c9f8004899815f3f0ee3cb28ef7281e2b589134"
+                "reference": "3600b5d17aff52f6100ea4921849deacbbeb8656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/2c9f8004899815f3f0ee3cb28ef7281e2b589134",
-                "reference": "2c9f8004899815f3f0ee3cb28ef7281e2b589134",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/3600b5d17aff52f6100ea4921849deacbbeb8656",
+                "reference": "3600b5d17aff52f6100ea4921849deacbbeb8656",
                 "shasum": ""
             },
             "require": {
@@ -6152,7 +6152,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2024-04-23T15:42:34+00:00"
+            "time": "2024-04-30T15:02:26+00:00"
         },
         {
             "name": "laravel/sail",
@@ -7976,16 +7976,16 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.4.4",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "17082e780752d346c2db12ef5d6bee8e835e399c"
+                "reference": "e27977d534eefe04c154c6fd8460217024054c05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/17082e780752d346c2db12ef5d6bee8e835e399c",
-                "reference": "17082e780752d346c2db12ef5d6bee8e835e399c",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/e27977d534eefe04c154c6fd8460217024054c05",
+                "reference": "e27977d534eefe04c154c6fd8460217024054c05",
                 "shasum": ""
             },
             "require": {
@@ -8033,7 +8033,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.4.4"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.5.1"
             },
             "funding": [
                 {
@@ -8041,20 +8041,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-31T14:18:45+00:00"
+            "time": "2024-05-03T15:43:14+00:00"
         },
         {
             "name": "spatie/ignition",
-            "version": "1.13.2",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "952798e239d9969e4e694b124c2cc222798dbb28"
+                "reference": "c23cc018c5f423d2f413b99f84655fceb6549811"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/952798e239d9969e4e694b124c2cc222798dbb28",
-                "reference": "952798e239d9969e4e694b124c2cc222798dbb28",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/c23cc018c5f423d2f413b99f84655fceb6549811",
+                "reference": "c23cc018c5f423d2f413b99f84655fceb6549811",
                 "shasum": ""
             },
             "require": {
@@ -8124,20 +8124,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T08:49:17+00:00"
+            "time": "2024-05-03T15:56:16+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "2.5.2",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "c93fcadcc4629775c839ac9a90916f07a660266f"
+                "reference": "f52124d50122611e8a40f628cef5c19ff6cc5b57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/c93fcadcc4629775c839ac9a90916f07a660266f",
-                "reference": "c93fcadcc4629775c839ac9a90916f07a660266f",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/f52124d50122611e8a40f628cef5c19ff6cc5b57",
+                "reference": "f52124d50122611e8a40f628cef5c19ff6cc5b57",
                 "shasum": ""
             },
             "require": {
@@ -8146,8 +8146,8 @@
                 "ext-mbstring": "*",
                 "illuminate/support": "^10.0|^11.0",
                 "php": "^8.1",
-                "spatie/flare-client-php": "^1.3.5",
-                "spatie/ignition": "^1.13.2",
+                "spatie/flare-client-php": "^1.5",
+                "spatie/ignition": "^1.14",
                 "symfony/console": "^6.2.3|^7.0",
                 "symfony/var-dumper": "^6.2.3|^7.0"
             },
@@ -8155,11 +8155,11 @@
                 "livewire/livewire": "^2.11|^3.3.5",
                 "mockery/mockery": "^1.5.1",
                 "openai-php/client": "^0.8.1",
-                "orchestra/testbench": "^8.0|^9.0",
-                "pestphp/pest": "^2.30",
-                "phpstan/extension-installer": "^1.2",
+                "orchestra/testbench": "8.22.3|^9.0",
+                "pestphp/pest": "^2.34",
+                "phpstan/extension-installer": "^1.3.1",
                 "phpstan/phpstan-deprecation-rules": "^1.1.1",
-                "phpstan/phpstan-phpunit": "^1.3.3",
+                "phpstan/phpstan-phpunit": "^1.3.16",
                 "vlucas/phpdotenv": "^5.5"
             },
             "suggest": {
@@ -8216,20 +8216,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T08:57:16+00:00"
+            "time": "2024-05-02T13:42:49+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.0.3",
+            "version": "v7.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "2d4fca631c00700597e9442a0b2451ce234513d3"
+                "reference": "0d3916ae69ea28b59d94b60c4f2b50f4e25adb5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/2d4fca631c00700597e9442a0b2451ce234513d3",
-                "reference": "2d4fca631c00700597e9442a0b2451ce234513d3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0d3916ae69ea28b59d94b60c4f2b50f4e25adb5c",
+                "reference": "0d3916ae69ea28b59d94b60c4f2b50f4e25adb5c",
                 "shasum": ""
             },
             "require": {
@@ -8271,7 +8271,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.0.3"
+                "source": "https://github.com/symfony/yaml/tree/v7.0.7"
             },
             "funding": [
                 {
@@ -8287,7 +8287,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:02:46+00:00"
+            "time": "2024-04-28T11:44:19+00:00"
         },
         {
             "name": "theseer/tokenizer",

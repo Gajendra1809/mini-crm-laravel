@@ -5691,6 +5691,7 @@ class ComposerStaticInitbfe12996eeecb6fdc8713a9fd9d431f8
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddContext' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddContext.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddDumps' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddDumps.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddEnvironmentInformation' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddEnvironmentInformation.php',
+        'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionHandledStatus' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddExceptionHandledStatus.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionInformation' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddExceptionInformation.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddJobs' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddJobs.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddLogs' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddLogs.php',

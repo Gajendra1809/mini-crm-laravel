@@ -28,4 +28,12 @@ class EmpUpdateRequest extends FormRequest
             "phone"=>"required|min:10"
         ];
     }
+    public function messages()
+    {
+        return [
+            'fname.required' => 'The First name field is required.',
+            'lname.required' => 'The Last name field is required.',
+            'email.email' => 'The email must be a valid email address.',
+        ];
+    }
 }

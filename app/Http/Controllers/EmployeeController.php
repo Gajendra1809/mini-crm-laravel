@@ -57,10 +57,16 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
+        if($request->has('id')){
+            $companyData=Company::where('id',$request->id)->first();
+            $company = Company::all();
+            return view("addEmployee", compact("company","companyData"));    
+        }
+        $companyData="";
         $company = Company::all();
-        return view("addEmployee", compact("company"));
+        return view("addEmployee", compact("company","companyData"));
     }
 
     /**
@@ -72,18 +78,13 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         $request->validated();
-        $fname= $request->fname;
-        $lname= $request->lname;
-        $email= $request->email;
-        $phone= $request->phone;
-        $company_id= $request->company_id;
 
         $employee = new Employee();
-        $employee->fname = $fname;
-        $employee->lname = $lname;
-        $employee->email = $email;
-        $employee->phone = $phone;
-        $employee->company_id = $company_id;
+        $employee->fname = $request->fname;
+        $employee->lname = $request->lname;
+        $employee->email = $request->email;
+        $employee->phone = $request->phone;
+        $employee->company_id = $request->company_id;
         try{
         $employee->save();
         return redirect()->route('employee.create')->with('success', 'Employee created successfully');

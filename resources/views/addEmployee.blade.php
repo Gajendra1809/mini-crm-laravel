@@ -187,7 +187,7 @@
 
     <label for="company_id">Company:</label>
     <select class="js-example-basic-single" name="company_id">
-        <option value=""></option>
+        <option value="{{request('id')?request('id'):''}}">{{$companyData?$companyData->name:''}}</option>
         @foreach($company as $c)
             <option value="{{ $c->id }}">{{ $c->name }}</option>
         @endforeach

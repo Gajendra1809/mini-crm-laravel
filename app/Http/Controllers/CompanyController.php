@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\CompanyRequest;
 use App\Notifications\NewCompanyRegistration;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,8 @@ use App\Models\Company;
 use Illuminate\Support\Str;
 use Storage;
 use Notification;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EmpExport;
 
 
 class CompanyController extends Controller
@@ -34,7 +37,11 @@ class CompanyController extends Controller
         }
         if ($request->has('search')) {
             $search = strtolower($request->search);
+            if($search!=''){
             $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->withTrashed()->paginate(10);
+            }else{
+                $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->paginate(10);
+            }
             return view("companies", compact("company"));
         }
         $company = Company::paginate(10);
@@ -89,7 +96,8 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $company=Company::withTrashed()->withCount('employee')->findOrFail($id);
+        return view('companyDetails',compact('company'));
     }
 
     /**
@@ -142,5 +150,9 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
         $company->delete();
         return redirect()->route('company.index')->with('success', 'Company deleted successfully');
+    }
+
+    public function export(Request $request){
+        return Excel::download(new EmpExport, 'emp.xlsx');
     }
 }

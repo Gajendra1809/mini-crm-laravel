@@ -29,4 +29,13 @@ class EmployeeRequest extends FormRequest
             "company_id"=>"required"
         ];
     }
+
+    public function messages()
+{
+    return [
+        'fname.required' => 'The First name field is required.',
+        'lname.required' => 'The Last name field is required.',
+        'email.email' => 'The email must be a valid email address.',
+    ];
+}
 }

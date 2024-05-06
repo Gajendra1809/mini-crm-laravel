@@ -5142,6 +5142,7 @@ return array(
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddContext' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddContext.php',
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddDumps' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddDumps.php',
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddEnvironmentInformation' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddEnvironmentInformation.php',
+    'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionHandledStatus' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddExceptionHandledStatus.php',
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionInformation' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddExceptionInformation.php',
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddJobs' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddJobs.php',
     'Spatie\\LaravelIgnition\\FlareMiddleware\\AddLogs' => $vendorDir . '/spatie/laravel-ignition/src/FlareMiddleware/AddLogs.php',

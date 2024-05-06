@@ -126,7 +126,7 @@
                     <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{ route("employee.create") }}"
+                    <a href="{{ route("employee.create",['id'=>$company->id])}}"
                         class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
                 </li>
 
