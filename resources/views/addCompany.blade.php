@@ -118,7 +118,10 @@
             <h2><a class="navbar-brand p-2 " href="#">MiniCRM</a></h2>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route("landing") }}">Home </a>
+                <div style="display:flex">
+                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                    <a class="nav-link" style="margin-left:-15px" href="{{ route("company.create") }}">Add Company</a>
+                    </div>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>

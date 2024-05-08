@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UsersExport;
 use App\Http\Requests\CompanyRequest;
 use App\Notifications\NewCompanyRegistration;
 use Illuminate\Support\Facades\Log;
@@ -11,8 +10,7 @@ use App\Models\Company;
 use Illuminate\Support\Str;
 use Storage;
 use Notification;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\EmpExport;
+use Illuminate\Support\Facades\Response;
 
 
 class CompanyController extends Controller
@@ -22,7 +20,8 @@ class CompanyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
-     */    public function index(Request $request)
+     */    
+    public function index(Request $request)
     {
         if ($request->has('status')) {
             $status = strtolower($request->status);
@@ -152,7 +151,22 @@ class CompanyController extends Controller
         return redirect()->route('company.index')->with('success', 'Company deleted successfully');
     }
 
-    public function export(Request $request){
-        return Excel::download(new EmpExport, 'emp.xlsx');
+    public function export()
+    {
+        $companies = Company::all();
+
+        $csv = \League\Csv\Writer::createFromString('');
+        $csv->insertOne(['ID', 'Name', 'Email', 'Website']);
+
+        foreach ($companies as $company) {
+            $csv->insertOne([$company->id, $company->name, $company->email, $company->website]);
+        }
+
+        $filename = 'companies.csv';
+
+        return Response::make($csv, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ]);
     }
 }

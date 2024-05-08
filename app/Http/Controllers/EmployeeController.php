@@ -8,7 +8,8 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Yajra\DataTables\DataTables;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
@@ -145,5 +146,26 @@ class EmployeeController extends Controller
         return redirect()->back()->with('success','Employee deleted');
     }
 
+    public function export(Request $request)
+    {
+        if($request->has('id')){
+            $employees = Employee::where('company_id',$request->id)->get();
+        }else{
+        $employees = Employee::all();
+        }
+        $csv = \League\Csv\Writer::createFromString('');
+        $csv->insertOne(['ID', 'First Name', 'Last Name', 'Email', 'Company', 'Phone']);
+
+        foreach ($employees as $employee) {
+           $csv->insertOne([$employee->id, $employee->fname, $employee->lname, $employee->email, $employee->company->name, $employee->phone]);
+        }
+
+        $filename = 'employees.csv';
+
+        return Response::make($csv, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ]);
+    }
     
 }

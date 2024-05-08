@@ -28,7 +28,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('/company',CompanyController::class);
     
     Route::resource('/employee',EmployeeController::class);
+
+    Route::get('/export/companies',[CompanyController::class,'export'])->name('company.export');
+    
+    Route::get('/export/employees',[EmployeeController::class,'export'])->name('employee.export');
     
 });
 
-Route::get('/export',[CompanyController::class,'export']);

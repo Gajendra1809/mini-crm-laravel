@@ -22,6 +22,14 @@
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
         }
+        @keyframes slideInOut2 {
+0% {
+    top: -100%;
+}
+100% {
+    top: 10%;
+}
+}
 
     </style>
 </head>
@@ -89,7 +97,7 @@
                                     <span
                                         class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
-                            </div>
+                            </div><br>
                             <button class="btn btn-danger" type="submit">Login</button>
                         </form>
                     </div>

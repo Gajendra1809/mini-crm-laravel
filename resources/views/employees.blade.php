@@ -137,6 +137,10 @@
         <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
+
+    
+    <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }}</b></h5><br><br><br>
+
     @if(session()->has('success'))
         <div class="alert alert-success msgpopup">
             <strong>Success!</strong> {{ session('success') }}👍
@@ -147,14 +151,14 @@
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
     @endif
-    <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }}</b></h5><br><br><br>
 
+    
         <form id="deleteform" action="" method="POST" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
         <div class="container">
-
+        <a style="" class="btn btn-primary btn-sm" href="{{route('employee.export',['id'=>$company->id])}}">Download {{ $company->name }} Employees data</a><br><br>
             <table class="table table-bordered yajra-datatable">
                 <thead>
                     <tr>

@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>\
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <style>
@@ -90,7 +90,10 @@
             <h2><a class="navbar-brand p-2 " href="#">MiniCRM</a></h2>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route("landing") }}">Home </a>
+                <div style="display:flex">
+                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                    <a class="nav-link" style="margin-left:-15px" href="{{ route("employee.create") }}">Add Employee</a>
+                    </div>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
@@ -121,45 +124,7 @@
 
     <h4 style="margin-left:50px">Add Employee details :-</b></h5><br><br><br>
 
-        <!-- <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
-            method="POST">
-            @csrf
-            First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
-            @if($errors->has('fname'))
-                <p class="error">*{{ $errors->first('fname') }}</p>
-            @endif
-            Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
-            @if($errors->has('lname'))
-                <p class="error">*{{ $errors->first('lname') }}</p>
-            @endif
-            Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
-            @if($errors->has('email'))
-                <p class="error">*{{ $errors->first('email') }}</p>
-            @endif
-            Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
-            @if($errors->has('phone'))
-                <p class="error">*{{ $errors->first('phone') }}</p>
-            @endif
-            Company:
-            <select class="js-example-basic-single" name="company_id">
-                <option value=""></option>
-                @foreach($company as $c)
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                @endforeach
-            </select>
-
-
-            @if($errors->has('company_id'))
-                <p class="error">*{{ $errors->first('company_id') }}</p>
-            @endif
-            <br><br><br>
-
-            <div style="display:flex;gap: 3px">
-                <button type="submit" style="background-color: green;">Submit</button>
-            </div>
-
-        </form> -->
-        <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}" method="POST">
+    <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}" method="POST">
     @csrf
     <label for="fname">First Name:</label>
     <input type="text" name="fname" id="fname" value="{{ old('fname') }}">

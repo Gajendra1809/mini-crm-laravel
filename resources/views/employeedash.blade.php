@@ -123,9 +123,12 @@
             <h2><a class="navbar-brand p-2 " href="#">MiniCRM</a></h2>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route("landing") }}">Home </a>
+                <div style="display:flex">
+                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                    <a class="nav-link" style="margin-left:-15px" href="{{ route("employee.index") }}">Employee Dashboard </a>
+                    </div>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route("company.index") }}">Company Dashboard</a>
                 </li>
                 <li>
@@ -140,6 +143,12 @@
         <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
+
+    <div style="display:flex">
+    <h4 style="margin-left:50px">Employee Dashboard:- </h4>
+    <a style="margin-left:970px" class="btn btn-primary btn-sm" href="{{route('employee.export')}}">Download Employees data in CSV file</a>
+    </div><br><br><br>
+
     @if(session()->has('success'))
         <div class="alert alert-success msgpopup">
             <strong>Success!</strong> {{ session('success') }}👍
@@ -150,7 +159,7 @@
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
     @endif
-    <h4 style="margin-left:50px">Employee Dashboard :-</b></h5><br><br><br>
+   
 
         <form id="deleteform" action="" method="POST" style="display: none;">
             @csrf

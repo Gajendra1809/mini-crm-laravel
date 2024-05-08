@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function login(Request $request){
       
-        $cred= $request->only(["email","password"]);
+      $cred= $request->only(["email","password"]);
       if(Auth::attempt($cred)){
         return redirect()->route('landing');
       }
