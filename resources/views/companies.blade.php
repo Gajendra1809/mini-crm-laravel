@@ -11,6 +11,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         .popup-container {
             display: none;
@@ -133,10 +134,10 @@
         <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
-    
+
     <div style="display:flex">
     <h4 style="margin-left:50px">Company Dashboard:- </h4>
-    <a  style="margin-left:970px" class="btn btn-primary btn-sm" href="{{route('company.export')}}">Download Companies data in CSV file</a>
+    <a  style="margin-left:940px" class="btn btn-primary btn-sm" href="{{route('company.export')}}">Download Companies data in CSV file <i class="fa-solid fa-download"></i></a>
     </div><br><br><br>
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))

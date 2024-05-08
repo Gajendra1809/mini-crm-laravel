@@ -86,7 +86,7 @@
             max-width: 400px;
             /* Set maximum width */
             animation: slideInOut2 0.6s forwards;
-        } 
+        }
 *
          @keyframes slideInOut {
 0% {

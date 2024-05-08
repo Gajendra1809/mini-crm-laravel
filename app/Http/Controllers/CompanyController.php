@@ -20,14 +20,14 @@ class CompanyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
-     */    
+     */
     public function index(Request $request)
     {
         if ($request->has('status')) {
             $status = strtolower($request->status);
             if($status=='active'){
                 $company = Company::paginate(10);
-            }else if($status=='inactive'){
+            }elseif($status=='inactive'){
                 $company = Company::onlyTrashed()->paginate(10);
             }else{
                 $company = Company::withTrashed()->paginate(10);
@@ -151,6 +151,12 @@ class CompanyController extends Controller
         return redirect()->route('company.index')->with('success', 'Company deleted successfully');
     }
 
+    /**
+    * Export companies data to a CSV file.
+    *
+    * This function exports the data of all companies to a CSV file.
+    * @return \Illuminate\Http\Response
+    */
     public function export()
     {
         $companies = Company::all();

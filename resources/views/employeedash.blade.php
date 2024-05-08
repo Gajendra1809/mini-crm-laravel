@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         .popup-container {
             display: none;
@@ -146,7 +147,7 @@
 
     <div style="display:flex">
     <h4 style="margin-left:50px">Employee Dashboard:- </h4>
-    <a style="margin-left:970px" class="btn btn-primary btn-sm" href="{{route('employee.export')}}">Download Employees data in CSV file</a>
+    <a style="margin-left:940px" class="btn btn-primary btn-sm" href="{{route('employee.export')}}">Download Employees data in CSV file <i class="fa-solid fa-download"></i> </a>
     </div><br><br><br>
 
     @if(session()->has('success'))

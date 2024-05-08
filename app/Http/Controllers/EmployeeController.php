@@ -18,7 +18,6 @@ class EmployeeController extends Controller
     {
         $companyId = $request->id;
         if ($companyId) {
-            //$employees = Employee::where('company_id', $companyId)->get();
             $company=Company::withTrashed()->find($companyId);
             if ($request->ajax()) {
                 $data = Employee::where('company_id', $companyId)->get();
@@ -63,7 +62,7 @@ class EmployeeController extends Controller
         if($request->has('id')){
             $companyData=Company::where('id',$request->id)->first();
             $company = Company::all();
-            return view("addEmployee", compact("company","companyData"));    
+            return view("addEmployee", compact("company","companyData"));
         }
         $companyData="";
         $company = Company::all();
@@ -146,6 +145,12 @@ class EmployeeController extends Controller
         return redirect()->back()->with('success','Employee deleted');
     }
 
+    /**
+    * Export employees data to a CSV file.
+    *
+    * This function exports the data of all/specified employees to a CSV file.
+    * @return \Illuminate\Http\Response
+    */
     public function export(Request $request)
     {
         if($request->has('id')){
