@@ -133,9 +133,9 @@
 
 
         </form>
-    </div>
+    </div><br>
 
-    <div id="map" class="container" style="width:1000px"></div>
+    <div id="map" class="container" style="width:1000px;border-radius:5px"></div>
 
     <script type="text/javascript">
         function initMap() {

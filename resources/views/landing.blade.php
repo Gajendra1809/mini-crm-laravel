@@ -57,13 +57,13 @@
         <div class="row mx-auto">
             <div class="col-sm-5">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="width:600px">
                         <h5 class="card-title">Company Manipulation</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text">Total companies :- 23 on this plateform</p>
                         <a href="{{ route('company.create') }}" class="btn btn-primary btn-sm">Add
-                            Company</a>
+                            Company +</a>
                         <a href="{{ route('company.index') }}" class="btn btn-primary btn-sm">Company
-                            Dashboard</a>
+                            Dashboard -></a>
                     </div>
                 </div>
             </div>
@@ -71,11 +71,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Employee Manipulation</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text">Total Employees :- 23 on this plateform</p>
                         <a href="{{ route('employee.create') }}" class="btn btn-primary btn-sm">Add
-                            Employee</a>
+                            Employee +</a>
                         <a href="{{ route('employee.index') }}"
-                            class="btn btn-primary btn-sm">Employee Dashboard</a>
+                            class="btn btn-primary btn-sm">Employee Dashboard -></a>
                     </div>
                 </div>
             </div>
