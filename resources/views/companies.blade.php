@@ -110,7 +110,7 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><a href="{{route('company.show',$c->id)}}"><img src="{{ $c->logo }}" alt="logo" style="width:50px;border-radius: 20px;"></a></td>
+                    <td><a href="{{route('company.show',$c->id)}}"><img src="{{ $c->logo }}" alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
                     <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
                     <td>{{$c->deleted_at?'Inactive':'Active'}}</td>
@@ -163,6 +163,11 @@
             @if($errors->has('website'))
                 <p class="error">*{{ $errors->first('website') }}</p>
             @endif
+            Location: <input type="text" name="location" id="edit-location"
+                value="{{ old('location') }}"><br>
+            @if($errors->has('location'))
+                <p class="error">*{{ $errors->first('location') }}</p>
+            @endif
 
             <div style="display:flex;gap: 3px">
                 <button type="submit" style="background-color: green;">Submit</button>
@@ -189,6 +194,7 @@
                     document.getElementById("edit-name").value = c.name;
                     document.getElementById("edit-email").value = c.email;
                     document.getElementById("edit-website").value = c.website;
+                    document.getElementById("edit-location").value = c.location;
                     // Set the action attribute of the form
                     document.getElementById("popup-form2").action =
                         "{{ route('company.update', '') }}/" + c.id;
@@ -206,7 +212,7 @@
 
 
         if ("{{ $errors->has('name') }}" || "{{ $errors->has('email') }}" ||
-            "{{ $errors->has('logo') }}" || "{{ $errors->has('website') }}"
+            "{{ $errors->has('logo') }}" || "{{ $errors->has('website') }}" || "{{ $errors->has('location') }}"
             ) {
             //console.log(localStorage.getItem('id'));
             openeditform();

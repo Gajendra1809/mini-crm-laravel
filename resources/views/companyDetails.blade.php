@@ -11,6 +11,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="{{asset('css/compDetail.css')}}">
 </head>
 
@@ -88,6 +89,7 @@
                         <div class="py-3">
                         
                         <div class="mt-4"> <span class="d-block head">Status : </span> <span class="bottom"><b>{{$company->deleted_at?'Inactive':'Active'}}</b></span> </div><br>
+                        <div > <span class="d-block head">Location : </span> <span class="bottom"><b>{{$company->location}}</b></span> </div><br>
                             <div > <span class="d-block head">Added on : </span> <span class="bottom"><b>{{$company->created_at}}</b></span> </div><br>
                             <div> <span class="d-block head">Last updated : </span> <span class="bottom"><b>{{$company->updated_at}}</b></span> </div><br>
                             @if($company->deleted_at)
@@ -133,10 +135,38 @@
         </form>
     </div>
 
+    <div id="map" class="container" style="width:1000px"></div>
 
-    <script>
-
+    <script type="text/javascript">
+        function initMap() {
+          let res;
+          $.ajax({
+            url:"{{route('company.map')}}",
+            type:'GET',
+            data:{location:"{{$company->location}}"},
+            dataType:'json',
+            success:function(data){
+                res=data;
+                const myLatLng = { lat: res.lat, lng: res.lon };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 8,
+                center: myLatLng,
+                });
+  
+                new google.maps.Marker({
+                position: myLatLng,
+                map,
+                title: "",
+                });
+            }
+          });
+        }
+  
+        window.initMap = initMap;
     </script>
+  
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" ></script>
+  
 </body>
 
 </html>

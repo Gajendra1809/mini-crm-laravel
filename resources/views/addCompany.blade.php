@@ -79,6 +79,11 @@
             @if($errors->has('website'))
                 <p class="error">*{{ $errors->first('website') }}</p>
             @endif
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required value="{{ old('location') }}"><br>
+            @if($errors->has('location'))
+                <p class="error">*{{ $errors->first('location') }}</p>
+            @endif
 
             <div style="display:flex;gap: 3px">
                 <button type="submit" style="background-color: green;">Submit</button>

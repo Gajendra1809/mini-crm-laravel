@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/export/companies',[CompanyController::class,'export'])->name('company.export');
     
     Route::get('/export/employees',[EmployeeController::class,'export'])->name('employee.export');
+
+    Route::get('/map',[CompanyController::class,'map'])->name('company.map');
     
 });
 

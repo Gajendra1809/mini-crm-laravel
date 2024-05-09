@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Storage;
 use Notification;
 use Illuminate\Support\Facades\Response;
+use GuzzleHttp\Client;
 
 
 class CompanyController extends Controller
@@ -66,20 +67,19 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request,)
     {
         $request->validated();
-        $name= $request->name;
-        $email= $request->email;
+
         $logo=$request->file("logo");
-        $website= $request->website;
 
         $filename = Str::random(20) . '.' . $logo->getClientOriginalExtension();
         $path = $logo->storeAs('public', $filename);
         $url = Storage::url($path);
 
         $company = new Company();
-        $company->name = $name;
-        $company->email = $email;
+        $company->name = $request->name;
+        $company->email = $request->email;
         $company->logo = $url;
-        $company->website = $website;
+        $company->website = $request->website;
+        $company->location=$request->location;
     
         try{
         $company->save();
@@ -121,6 +121,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->email = $request->email;
         $company->website=$request->website;
+        $company->location=$request->location;
 
         if($request->file("logo")){
         $logo=$request->file("logo");
@@ -162,10 +163,10 @@ class CompanyController extends Controller
         $companies = Company::all();
 
         $csv = \League\Csv\Writer::createFromString('');
-        $csv->insertOne(['ID', 'Name', 'Email', 'Website']);
+        $csv->insertOne(['ID', 'Name', 'Email', 'Website', 'Location']);
 
         foreach ($companies as $company) {
-            $csv->insertOne([$company->id, $company->name, $company->email, $company->website]);
+            $csv->insertOne([$company->id, $company->name, $company->email, $company->website, $company->location]);
         }
 
         $filename = 'companies.csv';
@@ -174,5 +175,32 @@ class CompanyController extends Controller
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
+    }
+
+     //map
+     public function map(Request $request){
+        $city=$request->location;
+        $client = new Client();
+        $url = 'http://api.openweathermap.org/geo/1.0/direct';
+
+        // Parameters for the API call
+        $params = [
+            'query' => [
+                'q' => $city,
+                'limit' => 5,
+                'appid' => '353fd06db73e87078db855a3e3cae3be'
+            ]
+        ];
+
+        // Make the API call
+        try {
+            $response = $client->request('GET', $url, $params);
+            $data = json_decode($response->getBody(), true);
+            $res=['lat'=>$data[0]['lat'],'lon'=>$data[0]['lon']];
+            echo json_encode($res);
+        } catch (\Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+
     }
 }
