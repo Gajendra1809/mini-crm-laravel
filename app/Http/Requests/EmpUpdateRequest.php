@@ -25,7 +25,7 @@ class EmpUpdateRequest extends FormRequest
             "fname"=>"required",
             "lname"=>"required",
             "email"=>"email",
-            "phone"=>"required|min:10"
+            "phone"=>"required|min:10|numeric"
         ];
     }
     public function messages()

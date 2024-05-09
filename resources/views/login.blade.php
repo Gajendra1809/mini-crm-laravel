@@ -10,28 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <style>
-        .msgpopup {
-            position: fixed;
-            top: 0;
-            left: 80%;
-            transform: translateX(-30%);
-            z-index: 9999;
-            width: 20%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut2 0.6s forwards;
-        }
-        @keyframes slideInOut2 {
-0% {
-    top: -100%;
-}
-100% {
-    top: 10%;
-}
-}
-
-    </style>
+    <link rel="stylesheet" href="{{asset('css/login.css')}}">
 </head>
 
 <body>
@@ -82,7 +61,7 @@
                                     Email
                                 </label>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                                    required />
+                                    required value="{{old('email')}}"/>
                                 @if($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -92,7 +71,7 @@
                                     Password
                                 </label>
                                 <input type="password" name="password" class="form-control" id="password"
-                                    placeholder="Password" required />
+                                    placeholder="Password" required value="{{old('password')}}"/>
                                 @if($errors->has('password'))
                                     <span
                                         class="text-danger">{{ $errors->first('password') }}</span>

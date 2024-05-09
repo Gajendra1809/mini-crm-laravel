@@ -1,0 +1,29 @@
+.msgpopup {
+    position: fixed;
+    top: 0;
+    left: 80%;
+    transform: translateX(-30%);
+    z-index: 9999;
+    width: 20%;
+    max-width: 400px; /* Set maximum width */
+    animation: slideInOut2 0.6s forwards, disappear 5s forwards; /* Combined animation */
+}
+
+@keyframes slideInOut2 {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 10%;
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none; /* Hide after animation */
+    }
+}

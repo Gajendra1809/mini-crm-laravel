@@ -12,91 +12,7 @@
     </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        .popup-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-            width: 50%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut 0.6s forwards;
-        }
-
-        .msgpopup {
-            position: fixed;
-            top: 0;
-            left: 80%;
-            transform: translateX(-30%);
-            z-index: 9999;
-            width: 20%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut2 0.6s forwards;
-        }
-        .error{
-            color:red; class="error"
-*        }
-
-        @keyframes slideInOut {
-0% {
-    top: -100%;
-}
-100% {
-    top: 20%;
-}
-}
-@keyframes slideInOut2 {
-0% {
-    top: -100%;
-}
-100% {
-    top: 10%;
-}
-}
-
-        /* Styling for the form */
-        .formstyle input {
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .formstyle button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn-search {
-	  background: #424242;
-	  border-radius: 0;
-	  color: #fff;
-	  border-width: 1px;
-	  border-style: solid;
-	  border-color: #1c1c1c;
-	}
-	.btn-search:link, .btn-search:visited {
-	  color: #fff;
-	}
-	.btn-search:active, .btn-search:hover {
-	  background: #1c1c1c;
-	  color: #fff;
-	}
-  
-    </style>
+    <link rel="stylesheet" href="{{asset('css/companies.css')}}">
 </head>
 
 <body>
@@ -167,7 +83,6 @@
     <form action="{{ route('company.index') }}" method="GET" id="statusform" style="width:150px;margin-top:3px;margin-left:1145px">
     <select name="status" class="form-select" onchange="document.getElementById('statusform').submit();" placeholder="saa">
         <option value="">Select Status</option>
-        <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All</option>
         <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
         <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
     </select>
@@ -196,7 +111,7 @@
             @foreach($company as $c)
                 <tr>
                     <td><a href="{{route('company.show',$c->id)}}"><img src="{{ $c->logo }}" alt="logo" style="width:50px;border-radius: 20px;"></a></td>
-                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td> 
+                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
                     <td>{{$c->deleted_at?'Inactive':'Active'}}</td>
                     <td><a

@@ -25,7 +25,7 @@ class EmployeeRequest extends FormRequest
             "fname"=>"required",
             "lname"=>"required",
             "email"=>"email",
-            "phone"=>"required|min:10",
+            "phone"=>"required|min:10|numeric",
             "company_id"=>"required"
         ];
     }

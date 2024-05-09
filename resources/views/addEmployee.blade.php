@@ -13,70 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <style>
-       .formstyle {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-
-    .formstyle input[type="text"],
-    .formstyle input[type="email"],
-    .formstyle select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    .formstyle button[type="submit"] {
-        background-color: #4caf50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .formstyle button[type="submit"]:hover {
-        background-color: #45a049;
-    }
-
-    .error {
-        color: red;
-        margin-top: -5px;
-    }
-
-        .msgpopup {
-            position: fixed;
-            top: 0;
-            left: 80%;
-            transform: translateX(-30%);
-            z-index: 9999;
-            width: 20%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut2 0.6s forwards;
-        }
-       
-
-
-        @keyframes slideInOut2 {
-0% {
-    top: -100%;
-}
-100% {
-    top: 10%;
-}
-}
-
-    </style>
+    <link rel="stylesheet" href="{{asset('css/addEmp.css')}}">
 </head>
 
 <body>

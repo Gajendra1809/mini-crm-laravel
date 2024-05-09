@@ -11,95 +11,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .popup-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-            width: 50%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut 0.6s forwards;
-        }
-
-        .msgpopup {
-            position: fixed;
-            top: 0;
-            left: 80%;
-            transform: translateX(-30%);
-            z-index: 9999;
-            width: 20%;
-            max-width: 400px;
-            /* Set maximum width */
-            animation: slideInOut2 0.6s forwards;
-        }
-        .error{
-            color:red; class="error"
-*        }
-
-        @keyframes slideInOut {
-0% {
-    top: -100%;
-}
-100% {
-    top: 20%;
-}
-}
-@keyframes slideInOut2 {
-0% {
-    top: -100%;
-}
-100% {
-    top: 10%;
-}
-}
-
-        /* Styling for the form */
-        .formstyle input {
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .formstyle button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn-search {
-	  background: #424242;
-	  border-radius: 0;
-	  color: #fff;
-	  border-width: 1px;
-	  border-style: solid;
-	  border-color: #1c1c1c;
-	}
-	.btn-search:link, .btn-search:visited {
-	  color: #fff;
-	}
-	.btn-search:active, .btn-search:hover {
-	  background: #1c1c1c;
-	  color: #fff;
-	}
-    .vl {
-  border-left: 6px solid green;
-  height: 500px;
-}
-  
-    </style>
+<link rel="stylesheet" href="{{asset('css/compDetail.css')}}">
 </head>
 
 <body>
@@ -152,7 +64,7 @@
             <div class="card p-2 text-center">
                 <div class="row">
                     <div class="col-md-7 border-right no-gutters">
-                        <div class="py-3"><img src="{{$company->logo}}" width="100" ><br><br>
+                        <div class="py-3"><img src="{{$company->logo}}" width="100" alt="Logo"><br><br>
                             <h4 class="text-secondary">{{$company->name}}</h4><br><br>
                             <div class="stats">
                                 <table class="table table-borderless">
