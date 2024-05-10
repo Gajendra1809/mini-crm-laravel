@@ -53,6 +53,7 @@
 
     <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }}</b></h5><br><br><br>
 
+        <!-- Display error or success messages if any -->
         @if(session()->has('success'))
             <div class="alert alert-success msgpopup">
                 <strong>Success!</strong> {{ session('success') }}👍
@@ -71,8 +72,9 @@
         </form>
         <div class="container">
             <a style="" class="btn btn-primary btn-sm"
-                href="{{ route('employee.export',['id'=>$company->id]) }}">Download
-                {{ $company->name }} Employees data <i class="fa-solid fa-download"></i></a><br><br>
+                href="{{ route('employee.export',['id'=>$company->id]) }}">Download {{ $company->name }} Employees data <i class="fa-solid fa-download"></i></a><br><br>
+
+            <!-- Employee listing using Yajra Datatables -->
             <table class="table table-bordered yajra-datatable">
                 <thead>
                     <tr>
@@ -88,6 +90,8 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Popup form for displaying employee edit form -->
         <div class="popup-container" id="birthdayForm">
             <form id="popup-form" class="formstyle" action="" method="POST">
                 @csrf
@@ -116,6 +120,8 @@
 
             </form>
         </div><br><br><br><br>
+
+        <!-- This is footer -->
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
@@ -182,16 +188,14 @@
         }
     }
 
-    //Pop form to add bithday
+     //Pop form
     openform();
-
     function openform(e) {
         var form = document.getElementById("birthdayForm");
         if (form.style.display === "none") {
             form.style.display = "block";
             //console.log(e.id);
             if (e) {
-                // If `c` is provided, populate the form fields with its data
                 document.getElementById("fname").value = e.fname;
                 document.getElementById("lname").value = e.lname;
                 document.getElementById("email").value = e.email;

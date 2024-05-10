@@ -17,6 +17,8 @@ class Company extends Model
         return $this->hasMany(Employee::class);
     }
 
+
+    //for deleting employees if a company is deleted
     protected static function boot()
     {
         parent::boot();

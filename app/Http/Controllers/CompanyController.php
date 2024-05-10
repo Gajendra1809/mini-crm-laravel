@@ -13,9 +13,13 @@ use Notification;
 use Illuminate\Support\Facades\Response;
 use GuzzleHttp\Client;
 
-
+/**
+ * Controller for handling Companies create, read, update, delete actions.
+ * Also has export csv file and map functions
+ */
 class CompanyController extends Controller
 {
+
      /**
      * Display a listing of the Companies.
      *
@@ -47,6 +51,7 @@ class CompanyController extends Controller
         $company = Company::paginate(10);
         return view("companies", compact("company"));
     }
+
 
     /**
      * Show the form for creating a new Company.
@@ -90,6 +95,7 @@ class CompanyController extends Controller
         }
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -99,6 +105,7 @@ class CompanyController extends Controller
         return view('companyDetails',compact('company'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -106,6 +113,7 @@ class CompanyController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified company in storage.
@@ -139,6 +147,7 @@ class CompanyController extends Controller
     }
     }
 
+
     /**
      * Remove(soft delete) the specified company from storage.
      *
@@ -151,6 +160,7 @@ class CompanyController extends Controller
         $company->delete();
         return redirect()->route('company.index')->with('success', 'Company deleted successfully');
     }
+
 
     /**
     * Export companies data to a CSV file.
@@ -177,7 +187,13 @@ class CompanyController extends Controller
         ]);
     }
 
-     //map
+
+     /**
+     * Fetches latitude and longitude coordinates for a given city using the OpenWeatherMap API.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
      public function map(Request $request){
         $city=$request->location;
         $client = new Client();
@@ -201,6 +217,6 @@ class CompanyController extends Controller
         } catch (\Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
-
     }
+    
 }

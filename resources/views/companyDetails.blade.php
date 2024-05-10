@@ -46,7 +46,9 @@
         <button class="btn btn-outline-success my-2 my-sm-0 "><a href="{{ route("logout") }}"
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
+
     <h4 style="margin-left:50px">Company Details:-</h4><br><br><br>
+
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
         <div class="alert alert-success msgpopup">
@@ -59,10 +61,11 @@
         </div>
     @endif
 
+    <!-- This the Card to show company details -->
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-7">
-                <div class="card p-2 text-center">
+                <div class="card p-2 text-center" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                     <div class="row">
                         <div class="col-md-7 border-right no-gutters">
                             <div class="py-3"><img src="{{ $company->logo }}" width="100" alt="Logo"><br><br>
@@ -149,7 +152,10 @@
         </form>
     </div><br>
 
+    <!-- Google Maps for the defined location -->
     <div id="map" class="container" style="width:1000px;border-radius:5px"></div><br><br><br><br>
+
+    <!-- This is footer -->
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
@@ -162,6 +168,7 @@
     </footer>
 
     <script type="text/javascript">
+        //function for initializing google map
         function initMap() {
             let res;
             $.ajax({
@@ -195,9 +202,7 @@
 
     </script>
 
-    <script type="text/javascript"
-        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap">
-    </script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap"></script>
 
 </body>
 

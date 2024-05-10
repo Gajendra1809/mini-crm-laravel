@@ -31,6 +31,7 @@
 
         </div>
     </nav><br><br><br><br>
+
     <h1 class="text-success text-center">
         Admin Login
     </h1>
@@ -84,6 +85,8 @@
             </div>
         </div>
     </div><br><br><br><br>
+
+    <!-- This is footer -->
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>

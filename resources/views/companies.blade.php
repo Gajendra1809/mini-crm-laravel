@@ -58,6 +58,7 @@
             href="{{ route('company.export') }}">Download Companies data in CSV file <i
                 class="fa-solid fa-download"></i></a>
     </div><br><br><br>
+
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
         <div class="alert alert-success msgpopup">
@@ -70,8 +71,9 @@
         </div>
     @endif
 
-
+    <!-- Filter options -->
     <div class="container">
+        <!-- This is Form to search by Company name -->
         <form action="{{ route('company.index') }}" method="GET" id="searchform">
             <div class="input-group">
                 <input type="text" id="search" class="form-control" name="search"
@@ -86,6 +88,7 @@
                 </span>
             </div>
         </form>
+        <!-- This is filter by status -->
         <form action="{{ route('company.index') }}" method="GET" id="statusform"
             style="width:150px;margin-top:3px;margin-left:1145px">
             <select name="status" class="form-select" onchange="document.getElementById('statusform').submit();"
@@ -103,11 +106,13 @@
     </div>
     </form>
     </div><br>
+
     @if($company->isEmpty())
         <h4 style="margin-left:120px;">No Companies found!</h4>
     @endif
     <br><br>
 
+    <!-- This the table to display listed companies -->
     <table class="table container table table-striped table-hover">
         <thead>
             <tr>
@@ -122,18 +127,12 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}"
-                                alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
-                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i
-                                class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}" alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
+                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
                     <td>{{ $c->deleted_at?'Inactive':'Active' }}</td>
-                    <td><a
-                            href="{{ route('employee.index',['id' => $c->id]) }}">Get
-                            employees</a></td>
+                    <td><a href="{{ route('employee.index',['id' => $c->id]) }}">Get employees</a></td>
                     @if(!$c->deleted_at)
-
-
                         <td><button onclick="openeditform({{ json_encode($c) }})"
                                 class="btn btn-primary btn-sm">Edit</button></td>
                         <td>
@@ -146,16 +145,16 @@
                                 onclick="if(confirm('Are you sure you want to delete this company?')) { event.preventDefault(); document.getElementById('delete-form-{{ $c->id }}').submit(); }">Delete</a>
                         </td>
                     @endif
-
                 </tr>
             @endforeach
         </tbody>
     </table>
+
     <div class="container">
         {{ $company->links('pagination::bootstrap-5') }}
     </div>
 
-
+    <!-- This is popup form for editing company details -->
     <div class="popup-container" id="editform">
         <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data">
             @csrf
@@ -191,6 +190,8 @@
 
         </form>
     </div><br><br><br><br>
+
+    <!-- This is footer -->
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
@@ -212,9 +213,6 @@
             if (form.style.display === "none") {
                 form.style.display = "block";
                 if (c) {
-                    // If `c` is provided, populate the form fields with its data
-
-                    // var name = document.getElementById("inpname").textContent;
                     document.getElementById("edit-name").value = c.name;
                     document.getElementById("edit-email").value = c.email;
                     document.getElementById("edit-website").value = c.website;
@@ -227,24 +225,17 @@
                 }
             } else {
                 form.style.display = "none";
-
-                // If the form is closed, reset the form fields and action attribute
-                //document.getElementById("popup-form2").reset();
-                //document.getElementById("popup-form2").action = "";
             }
         }
 
 
         if ("{{ $errors->has('name') }}" || "{{ $errors->has('email') }}" ||
-            "{{ $errors->has('logo') }}" ||
-            "{{ $errors->has('website') }}" ||
-            "{{ $errors->has('location') }}"
-        ) {
+            "{{ $errors->has('logo') }}" || "{{ $errors->has('website') }}" ||
+            "{{ $errors->has('location') }}")
+        {
             //console.log(localStorage.getItem('id'));
             openeditform();
-            document.getElementById("popup-form2").action =
-                "{{ route('company.update', '') }}/" + localStorage.getItem(
-                    'id');
+            document.getElementById("popup-form2").action ="{{ route('company.update', '') }}/" + localStorage.getItem('id');
 
         }
 

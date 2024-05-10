@@ -42,6 +42,7 @@
                     class="text-danger">Logout</a></button>&nbsp;&nbsp;
         @endauth
     </nav><br><br><br><br>
+
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
         <div class="alert alert-success msgpopup">
@@ -56,6 +57,7 @@
 
     <div style="display: flex;justify-content: center;align-items: center;margin-left: 150px;margin-top: 100px;">
         <div class="row mx-auto">
+             <!-- Company manipulation card -->
             <div class="col-sm-5">
                 <div class="card">
                     <div class="card-body" style="width:800px">
@@ -70,6 +72,7 @@
                     <div id="myChart" style="width:100%; max-width:600px; height:300px;"></div>
                 </div>
             </div>
+            <!-- Employee manipulation card -->
             <div class="col-sm-5">
                 <div class="card">
                     <div class="card-body">
@@ -87,6 +90,7 @@
         </div>
     </div><br><br><br><br>
 
+    <!-- This is footer -->
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
@@ -107,13 +111,14 @@
 
         function drawChart() {
 
-            // Set Data
+            // Set company Data
             const company = google.visualization.arrayToDataTable([
                 ['Company', 'Count'],
                 ['Week', parseInt("{{ $analyticsData->last_week_comp }}")],
                 ['Month', parseInt("{{ $analyticsData->last_month_comp }}")],
                 ['Total', parseInt("{{ $analyticsData->total_company }}")]
             ]);
+            // Set employee Data
             const employee = google.visualization.arrayToDataTable([
                 ['Employee', 'Count'],
                 ['Week', parseInt("{{ $analyticsData->last_week_emp }}")],

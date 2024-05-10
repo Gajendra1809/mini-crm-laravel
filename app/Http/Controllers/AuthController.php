@@ -55,7 +55,6 @@ class AuthController extends Controller
         $lastMonthEmp=Employee::whereDate('created_at', '>=', Carbon::now()->subMonth())->get()->count();
 
         $analyticsData=(object)['total_company'=>$totalCompanies,'total_employee'=>$totalEmployees,'last_week_comp'=>$lastWeekComp,'last_week_emp'=>$lastWeekEmp,'last_month_comp'=>$lastMonthComp,'last_month_emp'=>$lastMonthEmp];
-        // dd($analyticsData);
         return view('landing',compact('analyticsData'));
     }
 }

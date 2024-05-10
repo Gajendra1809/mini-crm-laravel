@@ -11,6 +11,11 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
 
+
+/**
+ * Controller for handling Employees create, read, update, delete actions.
+ * Also has export csv file function
+ */
 class EmployeeController extends Controller
 {
     
@@ -52,6 +57,7 @@ class EmployeeController extends Controller
         
     }
 
+
     /**
      * Show the form for creating a new employee.
      *
@@ -68,6 +74,7 @@ class EmployeeController extends Controller
         $company = Company::all();
         return view("addEmployee", compact("company","companyData"));
     }
+
 
     /**
      * Store a newly created employee in storage.
@@ -93,6 +100,7 @@ class EmployeeController extends Controller
         }
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -101,6 +109,7 @@ class EmployeeController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -108,6 +117,7 @@ class EmployeeController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified employee in storage.
@@ -132,6 +142,7 @@ class EmployeeController extends Controller
           }
     }
 
+
     /**
      * Remove(soft delete) the specified employee from storage.
      *
@@ -145,6 +156,7 @@ class EmployeeController extends Controller
         return redirect()->back()->with('success','Employee deleted');
     }
 
+    
     /**
     * Export employees data to a CSV file.
     *
