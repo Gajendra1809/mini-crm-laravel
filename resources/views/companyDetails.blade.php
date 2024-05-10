@@ -10,9 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<link rel="stylesheet" href="{{asset('css/compDetail.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/compDetail.css') }}">
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                     <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{ route("employee.create",['id'=>$company->id])}}"
+                    <a href="{{ route("employee.create",['id'=>$company->id]) }}"
                         class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
                 </li>
 
@@ -60,48 +60,62 @@
     @endif
 
     <div class="container mt-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <div class="card p-2 text-center">
-                <div class="row">
-                    <div class="col-md-7 border-right no-gutters">
-                        <div class="py-3"><img src="{{$company->logo}}" width="100" alt="Logo"><br><br>
-                            <h4 class="text-secondary">{{$company->name}}</h4><br><br>
-                            <div class="stats">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex flex-column"> <span class="text-left head">Email : </span> <span class="text-left bottom"><b>{{$company->email}}</b></span> </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-column"> <span class="text-left head">Employees Count : </span> <span class="text-left bottom"><b>{{$company->employee_count}}</b></span> </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div><br>
-                            <div class="px-3"><a  href="{{ route('employee.index',['id' => $company->id]) }}" class="btn btn-primary btn-block btn-sm">Get Employees</a></div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card p-2 text-center">
+                    <div class="row">
+                        <div class="col-md-7 border-right no-gutters">
+                            <div class="py-3"><img src="{{ $company->logo }}" width="100" alt="Logo"><br><br>
+                                <h4 class="text-secondary">{{ $company->name }}</h4><br><br>
+                                <div class="stats">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex flex-column"> <span class="text-left head">Email
+                                                            : </span> <span
+                                                            class="text-left bottom"><b>{{ $company->email }}</b></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex flex-column"> <span
+                                                            class="text-left head">Employees Count : </span> <span
+                                                            class="text-left bottom"><b>{{ $company->employee_count }}</b></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><br>
+                                <div class="px-3"><a
+                                        href="{{ route('employee.index',['id' => $company->id]) }}"
+                                        class="btn btn-primary btn-block btn-sm">Get Employees</a></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-5">
-                        <div class="py-3">
-                        
-                        <div class="mt-4"> <span class="d-block head">Status : </span> <span class="bottom"><b>{{$company->deleted_at?'Inactive':'Active'}}</b></span> </div><br>
-                        <div > <span class="d-block head">Location : </span> <span class="bottom"><b>{{$company->location}}</b></span> </div><br>
-                            <div > <span class="d-block head">Added on : </span> <span class="bottom"><b>{{$company->created_at}}</b></span> </div><br>
-                            <div> <span class="d-block head">Last updated : </span> <span class="bottom"><b>{{$company->updated_at}}</b></span> </div><br>
-                            @if($company->deleted_at)
-                            <div> <span class="d-block head">Deleted on : </span> <span class="bottom"><b>{{$company->deleted_at}}</b></span> </div>
-                            @endif
+                        <div class="col-md-5">
+                            <div class="py-3">
+
+                                <div class="mt-4"> <span class="d-block head">Status : </span> <span
+                                        class="bottom"><b>{{ $company->deleted_at?'Inactive':'Active' }}</b></span>
+                                </div><br>
+                                <div> <span class="d-block head">Location : </span> <span
+                                        class="bottom"><b>{{ $company->location }}</b></span> </div><br>
+                                <div> <span class="d-block head">Added on : </span> <span
+                                        class="bottom"><b>{{ $company->created_at }}</b></span> </div><br>
+                                <div> <span class="d-block head">Last updated : </span> <span
+                                        class="bottom"><b>{{ $company->updated_at }}</b></span> </div><br>
+                                @if($company->deleted_at)
+                                    <div> <span class="d-block head">Deleted on : </span> <span
+                                            class="bottom"><b>{{ $company->deleted_at }}</b></span> </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <div class="popup-container" id="editform">
@@ -135,38 +149,56 @@
         </form>
     </div><br>
 
-    <div id="map" class="container" style="width:1000px;border-radius:5px"></div>
+    <div id="map" class="container" style="width:1000px;border-radius:5px"></div><br><br><br><br>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </footer>
 
     <script type="text/javascript">
         function initMap() {
-          let res;
-          $.ajax({
-            url:"{{route('company.map')}}",
-            type:'GET',
-            data:{location:"{{$company->location}}"},
-            dataType:'json',
-            success:function(data){
-                res=data;
-                const myLatLng = { lat: res.lat, lng: res.lon };
-                const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 8,
-                center: myLatLng,
-                });
-  
-                new google.maps.Marker({
-                position: myLatLng,
-                map,
-                title: "",
-                });
-            }
-          });
+            let res;
+            $.ajax({
+                url: "{{ route('company.map') }}",
+                type: 'GET',
+                data: {
+                    location: "{{ $company->location }}"
+                },
+                dataType: 'json',
+                success: function (data) {
+                    res = data;
+                    const myLatLng = {
+                        lat: res.lat,
+                        lng: res.lon
+                    };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 8,
+                        center: myLatLng,
+                    });
+
+                    new google.maps.Marker({
+                        position: myLatLng,
+                        map,
+                        title: "",
+                    });
+                }
+            });
         }
-  
+
         window.initMap = initMap;
+
     </script>
-  
-  <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" ></script>
-  
+
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap">
+    </script>
+
 </body>
 
 </html>

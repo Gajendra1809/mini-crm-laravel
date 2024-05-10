@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" href="{{asset('css/addComp.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/addComp.css') }}">
 </head>
 
 <body>
@@ -24,9 +24,10 @@
             <h2><a class="navbar-brand p-2 " href="#">MiniCRM</a></h2>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                <div style="display:flex">
-                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
-                    <a class="nav-link" style="margin-left:-15px" href="{{ route("company.create") }}">Add Company</a>
+                    <div style="display:flex">
+                        <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                        <a class="nav-link" style="margin-left:-15px"
+                            href="{{ route("company.create") }}">Add Company</a>
                     </div>
                 </li>
                 <li class="nav-item active">
@@ -80,7 +81,8 @@
                 <p class="error">*{{ $errors->first('website') }}</p>
             @endif
             <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required value="{{ old('location') }}"><br>
+            <input type="text" id="location" name="location" required
+                value="{{ old('location') }}"><br>
             @if($errors->has('location'))
                 <p class="error">*{{ $errors->first('location') }}</p>
             @endif
@@ -89,7 +91,18 @@
                 <button type="submit" style="background-color: green;">Submit</button>
             </div>
 
-        </form>
+        </form><br><br><br><br>
+
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+        </footer>
 </body>
 
 </html>

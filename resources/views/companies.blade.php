@@ -10,9 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('css/companies.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/companies.css') }}">
 </head>
 
 <body>
@@ -27,8 +27,9 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <div style="display:flex">
-                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
-                    <a class="nav-link" style="margin-left:-15px" href="{{ route("company.index") }}">Company Dashboard </a>
+                        <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                        <a class="nav-link" style="margin-left:-15px"
+                            href="{{ route("company.index") }}">Company Dashboard </a>
                     </div>
                 </li>
                 <li class="nav-item active">
@@ -52,8 +53,10 @@
     </nav><br><br><br><br>
 
     <div style="display:flex">
-    <h4 style="margin-left:50px">Company Dashboard:- </h4>
-    <a  style="margin-left:940px" class="btn btn-primary btn-sm" href="{{route('company.export')}}">Download Companies data in CSV file <i class="fa-solid fa-download"></i></a>
+        <h4 style="margin-left:50px">Company Dashboard:- </h4>
+        <a style="margin-left:940px" class="btn btn-primary btn-sm"
+            href="{{ route('company.export') }}">Download Companies data in CSV file <i
+                class="fa-solid fa-download"></i></a>
     </div><br><br><br>
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
@@ -66,32 +69,41 @@
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
     @endif
-    
+
 
     <div class="container">
-    <form action="{{ route('company.index') }}" method="GET" id="searchform">
-        <div class="input-group">
-            <input type="text" id="search" class="form-control" name="search" placeholder="Search by Company name..." value="{{ request('search') }}">
-            <span class="input-group-btn">
-                <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i> Search</button>
-            </span>
-            <span class="crossbtn">
-                <button type="button" onclick="document.getElementById('search').value='';document.getElementById('searchform').submit();"  class="btn btn-clear crossbtn">X</button>
-            </span>
-        </div>
-    </form>
-    <form action="{{ route('company.index') }}" method="GET" id="statusform" style="width:150px;margin-top:3px;margin-left:1145px">
-    <select name="status" class="form-select" onchange="document.getElementById('statusform').submit();" placeholder="saa">
-        <option value="">Select Status</option>
-        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-    </select>
-</form>
+        <form action="{{ route('company.index') }}" method="GET" id="searchform">
+            <div class="input-group">
+                <input type="text" id="search" class="form-control" name="search"
+                    placeholder="Search by Company name..." value="{{ request('search') }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i> Search</button>
+                </span>
+                <span class="crossbtn">
+                    <button type="button"
+                        onclick="document.getElementById('search').value='';document.getElementById('searchform').submit();"
+                        class="btn btn-clear crossbtn">X</button>
+                </span>
+            </div>
+        </form>
+        <form action="{{ route('company.index') }}" method="GET" id="statusform"
+            style="width:150px;margin-top:3px;margin-left:1145px">
+            <select name="status" class="form-select" onchange="document.getElementById('statusform').submit();"
+                placeholder="saa">
+                <option value="">Select Status</option>
+                <option value="active"
+                    {{ request('status') == 'active' ? 'selected' : '' }}>
+                    Active</option>
+                <option value="inactive"
+                    {{ request('status') == 'inactive' ? 'selected' : '' }}>
+                    Inactive</option>
+            </select>
+        </form>
 
-</div>
+    </div>
     </form>
-</div><br>
-@if($company->isEmpty())
+    </div><br>
+    @if($company->isEmpty())
         <h4 style="margin-left:120px;">No Companies found!</h4>
     @endif
     <br><br>
@@ -110,27 +122,29 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><a href="{{route('company.show',$c->id)}}"><img src="{{ $c->logo }}" alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
-                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{$c->website}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}"
+                                alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
+                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i
+                                class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
-                    <td>{{$c->deleted_at?'Inactive':'Active'}}</td>
+                    <td>{{ $c->deleted_at?'Inactive':'Active' }}</td>
                     <td><a
                             href="{{ route('employee.index',['id' => $c->id]) }}">Get
                             employees</a></td>
-                    @if (!$c->deleted_at)
-                        
-                    
-                    <td><button onclick="openeditform({{ json_encode($c) }})"
-                            class="btn btn-primary btn-sm">Edit</button></td>
-                    <td>
-                        <form id="delete-form-{{ $c->id }}"
-                            action="{{ route('company.destroy', $c->id) }}" method="POST"
-                            style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                        </form><a href="#" class="btn btn-danger btn-sm"
-                            onclick="if(confirm('Are you sure you want to delete this company?')) { event.preventDefault(); document.getElementById('delete-form-{{ $c->id }}').submit(); }">Delete</a>
-                    </td>
+                    @if(!$c->deleted_at)
+
+
+                        <td><button onclick="openeditform({{ json_encode($c) }})"
+                                class="btn btn-primary btn-sm">Edit</button></td>
+                        <td>
+                            <form id="delete-form-{{ $c->id }}"
+                                action="{{ route('company.destroy', $c->id) }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form><a href="#" class="btn btn-danger btn-sm"
+                                onclick="if(confirm('Are you sure you want to delete this company?')) { event.preventDefault(); document.getElementById('delete-form-{{ $c->id }}').submit(); }">Delete</a>
+                        </td>
                     @endif
 
                 </tr>
@@ -138,8 +152,8 @@
         </tbody>
     </table>
     <div class="container">
-            {{ $company->links('pagination::bootstrap-5') }}
-        </div>
+        {{ $company->links('pagination::bootstrap-5') }}
+    </div>
 
 
     <div class="popup-container" id="editform">
@@ -176,7 +190,17 @@
 
 
         </form>
-    </div>
+    </div><br><br><br><br>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </footer>
 
 
     <script>
@@ -212,8 +236,10 @@
 
 
         if ("{{ $errors->has('name') }}" || "{{ $errors->has('email') }}" ||
-            "{{ $errors->has('logo') }}" || "{{ $errors->has('website') }}" || "{{ $errors->has('location') }}"
-            ) {
+            "{{ $errors->has('logo') }}" ||
+            "{{ $errors->has('website') }}" ||
+            "{{ $errors->has('location') }}"
+        ) {
             //console.log(localStorage.getItem('id'));
             openeditform();
             document.getElementById("popup-form2").action =

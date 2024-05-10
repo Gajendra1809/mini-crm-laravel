@@ -87,7 +87,7 @@ class EmployeeController extends Controller
         $employee->company_id = $request->company_id;
         try{
         $employee->save();
-        return redirect()->route('employee.create')->with('success', 'Employee created successfully');
+        return redirect()->route('employee.index',['id' => $request->company_id])->with('success', 'Employee created successfully');
         }catch(\Exception $e){
         return redirect()->route('employee.create')->withInput()->with('error', 'Employee not created');
         }

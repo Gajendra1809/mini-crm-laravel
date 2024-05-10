@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" href="{{asset('css/login.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 
 <body>
@@ -61,7 +61,7 @@
                                     Email
                                 </label>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                                    required value="{{old('email')}}"/>
+                                    required value="{{ old('email') }}" />
                                 @if($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -71,7 +71,7 @@
                                     Password
                                 </label>
                                 <input type="password" name="password" class="form-control" id="password"
-                                    placeholder="Password" required value="{{old('password')}}"/>
+                                    placeholder="Password" required value="{{ old('password') }}" />
                                 @if($errors->has('password'))
                                     <span
                                         class="text-danger">{{ $errors->first('password') }}</span>
@@ -83,7 +83,17 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><br><br><br><br>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </footer>
 </body>
 
 </html>

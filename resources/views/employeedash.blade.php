@@ -15,7 +15,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('css/empDash.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/empDash.css') }}">
 </head>
 
 <body>
@@ -29,9 +29,10 @@
             <h2><a class="navbar-brand p-2 " href="#">MiniCRM</a></h2>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                <div style="display:flex">
-                    <a class="nav-link" href="{{ route("landing") }}">Home/</a>
-                    <a class="nav-link" style="margin-left:-15px" href="{{ route("employee.index") }}">Employee Dashboard </a>
+                    <div style="display:flex">
+                        <a class="nav-link" href="{{ route("landing") }}">Home/</a>
+                        <a class="nav-link" style="margin-left:-15px"
+                            href="{{ route("employee.index") }}">Employee Dashboard </a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -51,8 +52,10 @@
     </nav><br><br><br><br>
 
     <div style="display:flex">
-    <h4 style="margin-left:50px">Employee Dashboard:- </h4>
-    <a style="margin-left:940px" class="btn btn-primary btn-sm" href="{{route('employee.export')}}">Download Employees data in CSV file <i class="fa-solid fa-download"></i> </a>
+        <h4 style="margin-left:50px">Employee Dashboard:- </h4>
+        <a style="margin-left:940px" class="btn btn-primary btn-sm"
+            href="{{ route('employee.export') }}">Download Employees data in CSV file <i
+                class="fa-solid fa-download"></i> </a>
     </div><br><br><br>
 
     @if(session()->has('success'))
@@ -65,58 +68,67 @@
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
     @endif
-   
 
-        <form id="deleteform" action="" method="POST" style="display: none;">
+
+    <form id="deleteform" action="" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+    <div class="container">
+
+        <table class="table table-bordered yajra-datatable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="popup-container" id="birthdayForm">
+        <form id="popup-form" class="formstyle" action="" method="POST">
             @csrf
-            @method('DELETE')
+            @method('PUT')
+            First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+            @if($errors->has('fname'))
+                <p class="error">{{ $errors->first('fname') }}</p>
+            @endif
+            Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+            @if($errors->has('lname'))
+                <p class="error">{{ $errors->first('lname') }}</p>
+            @endif
+            Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+            @if($errors->has('email'))
+                <p class="error">{{ $errors->first('email') }}</p>
+            @endif
+            Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+            @if($errors->has('phone'))
+                <p class="error">{{ $errors->first('phone') }}</p>
+            @endif
+            <div style="display:flex;gap: 3px">
+                <button type="submit" style="background-color: green;">Submit</button>
+                <button type="button" onclick="window.location.reload()" style="background-color: red;">Cancel</button>
+            </div>
+
         </form>
-        <div class="container">
-
-            <table class="table table-bordered yajra-datatable">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Company</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div class="popup-container" id="birthdayForm">
-            <form id="popup-form" class="formstyle" action="" method="POST" >
-                @csrf
-                @method('PUT')
-                First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
-                @if($errors->has('fname'))
-                    <p class="error">{{ $errors->first('fname') }}</p>
-                @endif
-                Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
-                @if($errors->has('lname'))
-                    <p class="error">{{ $errors->first('lname') }}</p>
-                @endif
-                Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
-                @if($errors->has('email'))
-                    <p class="error">{{ $errors->first('email') }}</p>
-                @endif
-                Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
-                @if($errors->has('phone'))
-                    <p class="error">{{ $errors->first('phone') }}</p>
-                @endif
-                <div style="display:flex;gap: 3px">
-                    <button type="submit" style="background-color: green;">Submit</button>
-                    <button type="button" onclick="window.location.reload()"
-                        style="background-color: red;">Cancel</button>
-                </div>
-
-            </form>
-        </div>
+    </div><br><br><br><br>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </footer>
 
 
 </body>
@@ -208,7 +220,7 @@
         openform();
         document.getElementById("popup-form").action =
             "{{ route('employee.update', '') }}/" + localStorage.getItem(
-            'eid');
+                'eid');
     }
 
 </script>

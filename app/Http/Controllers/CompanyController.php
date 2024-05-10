@@ -84,7 +84,7 @@ class CompanyController extends Controller
         try{
         $company->save();
         //Notification::route('mail', $company->email)->notify(new NewCompanyRegistration($name));
-        return redirect()->back()->with('success', 'Company created successfully');
+        return redirect()->route('company.index')->with('success', 'Company created successfully');
         }catch(\Exception $e){
         return redirect()->route('company.create')->withInput()->with('error', 'Company not created');
         }
@@ -184,8 +184,8 @@ class CompanyController extends Controller
         $url = 'http://api.openweathermap.org/geo/1.0/direct';
 
         // Parameters for the API call
-        $params = [
-            'query' => [
+        $params =[
+            'query' =>[
                 'q' => $city,
                 'limit' => 5,
                 'appid' => '353fd06db73e87078db855a3e3cae3be'

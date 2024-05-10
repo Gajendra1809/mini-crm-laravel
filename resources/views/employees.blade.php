@@ -15,7 +15,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('css/employees.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/employees.css') }}">
 </head>
 
 <body>
@@ -38,7 +38,7 @@
                     <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{ route("employee.create",['id'=>$company->id])}}"
+                    <a href="{{ route("employee.create",['id'=>$company->id]) }}"
                         class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
                 </li>
 
@@ -50,27 +50,29 @@
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
 
-    
+
     <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }}</b></h5><br><br><br>
 
-    @if(session()->has('success'))
-        <div class="alert alert-success msgpopup">
-            <strong>Success!</strong> {{ session('success') }}👍
-        </div>
-    @endif
-    @if(session()->has('error'))
-        <div class="alert alert-danger msgpopup">
-            <strong>Something went wrong!</strong> {{ session('error') }}
-        </div>
-    @endif
+        @if(session()->has('success'))
+            <div class="alert alert-success msgpopup">
+                <strong>Success!</strong> {{ session('success') }}👍
+            </div>
+        @endif
+        @if(session()->has('error'))
+            <div class="alert alert-danger msgpopup">
+                <strong>Something went wrong!</strong> {{ session('error') }}
+            </div>
+        @endif
 
-    
+
         <form id="deleteform" action="" method="POST" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
         <div class="container">
-        <a style="" class="btn btn-primary btn-sm" href="{{route('employee.export',['id'=>$company->id])}}">Download {{ $company->name }} Employees data <i class="fa-solid fa-download"></i></a><br><br>
+            <a style="" class="btn btn-primary btn-sm"
+                href="{{ route('employee.export',['id'=>$company->id]) }}">Download
+                {{ $company->name }} Employees data <i class="fa-solid fa-download"></i></a><br><br>
             <table class="table table-bordered yajra-datatable">
                 <thead>
                     <tr>
@@ -113,7 +115,17 @@
                 </div>
 
             </form>
-        </div>
+        </div><br><br><br><br>
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+        </footer>
 
 
 </body>
@@ -200,7 +212,8 @@
         "{{ $errors->has('lname') }}" || "{{ $errors->has('phone') }}") {
         openform();
         document.getElementById("popup-form").action =
-            "{{ route('employee.update', '') }}/" + localStorage.getItem('eid');
+            "{{ route('employee.update', '') }}/" + localStorage.getItem(
+                'eid');
     }
 
 </script>
