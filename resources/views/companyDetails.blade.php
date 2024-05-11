@@ -47,7 +47,7 @@
                 class="text-danger">Logout</a></button>&nbsp;&nbsp;
     </nav><br><br><br><br>
 
-    <h4 style="margin-left:50px">Company Details:-</h4><br><br><br>
+    <h4 style="margin-left:50px">Company Details:-</h4><br>
 
     <!-- This is to handle messages sent through session -->
     @if(session()->has('success'))
@@ -84,6 +84,14 @@
                                                     <div class="d-flex flex-column"> <span
                                                             class="text-left head">Employees Count : </span> <span
                                                             class="text-left bottom"><b>{{ $company->employee_count }}</b></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex flex-column"> <span
+                                                            class="text-left head">Website : </span> <span
+                                                            class="text-left bottom"><b>{{ $company->website }}</b></span>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -202,7 +210,9 @@
 
     </script>
 
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap"></script>
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap">
+    </script>
 
 </body>
 

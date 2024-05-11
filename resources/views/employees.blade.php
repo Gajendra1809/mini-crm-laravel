@@ -51,7 +51,7 @@
     </nav><br><br><br><br>
 
 
-    <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }}</b></h5><br><br><br>
+    <h4 style="margin-left:50px">Here are the Employee of :- {{ $company->name }} <a href="{{ route('company.show',$company->id) }}"><i class="fas fa-share"></i></a></b></h5><br><br><br>
 
         <!-- Display error or success messages if any -->
         @if(session()->has('success'))
@@ -96,24 +96,28 @@
             <form id="popup-form" class="formstyle" action="" method="POST">
                 @csrf
                 @method('PUT')
-                First Name: <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+                <b>First Name:</b> <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
                 @if($errors->has('fname'))
-                    <p class="error">*{{ $errors->first('fname') }}</p>
+                    <p class="error marginleft">*{{ $errors->first('fname') }}</p>
                 @endif
-                Last Name: <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+                <br>
+                <b>Last Name:</b> <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
                 @if($errors->has('lname'))
-                    <p class="error">*{{ $errors->first('lname') }}</p>
+                    <p class="error marginleft">*{{ $errors->first('lname') }}</p>
                 @endif
-                Email: <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+                <br>
+                <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email" value="{{ old('email') }}"><br>
                 @if($errors->has('email'))
-                    <p class="error">*{{ $errors->first('email') }}</p>
+                    <p class="error marginleft">*{{ $errors->first('email') }}</p>
                 @endif
-                Phone: <input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+                <br>
+                <b>Phone:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
                 @if($errors->has('phone'))
-                    <p class="error">*{{ $errors->first('phone') }}</p>
+                    <p class="error marginleft">*{{ $errors->first('phone') }}</p>
                 @endif
+                <br>
                 <div style="display:flex;gap: 3px">
-                    <button type="submit" style="background-color: green;">Submit</button>
+                    <button type="submit" style="background-color: green;">Save</button>
                     <button type="button" onclick="window.location.reload()"
                         style="background-color: red;">Cancel</button>
                 </div>

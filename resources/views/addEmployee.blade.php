@@ -67,31 +67,31 @@
         <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
             method="POST">
             @csrf
-            <label for="fname">First Name:</label>
+            <label for="fname"><b> First Name:</b></label>
             <input type="text" name="fname" id="fname" value="{{ old('fname') }}">
             @if($errors->has('fname'))
                 <p class="error">*{{ $errors->first('fname') }}</p>
             @endif
 
-            <label for="lname">Last Name:</label>
+            <label for="lname"><b> Last Name:</b></label>
             <input type="text" name="lname" id="lname" value="{{ old('lname') }}">
             @if($errors->has('lname'))
                 <p class="error">*{{ $errors->first('lname') }}</p>
             @endif
 
-            <label for="email">Email:</label>
+            <label for="email"><b> Email:</b></label>
             <input type="email" name="email" id="email" value="{{ old('email') }}">
             @if($errors->has('email'))
                 <p class="error">*{{ $errors->first('email') }}</p>
             @endif
 
-            <label for="phone">Phone:</label>
+            <label for="phone"><b> Phone:</b></label>
             <input type="text" name="phone" id="phone" value="{{ old('phone') }}">
             @if($errors->has('phone'))
                 <p class="error">*{{ $errors->first('phone') }}</p>
             @endif
 
-            <label for="company_id">Company:</label>
+            <label for="company_id"><b> Company:</b></label>
             <select class="js-example-basic-single" name="company_id">
                 <option
                     value="{{ request('id')?request('id'):'' }}">

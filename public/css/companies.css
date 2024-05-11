@@ -9,8 +9,9 @@
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
-    width: 50%;
-    max-width: 400px;
+    width: 700px;
+    height:550px;
+    max-width: 700px;
     /* Set maximum width */
     animation: slideInOut 0.6s forwards;
 }
@@ -54,7 +55,7 @@
 top: -100%;
 }
 100% {
-top: 20%;
+top: 15%;
 }
 }
 
@@ -70,12 +71,12 @@ top: 20%;
 }
 
 .formstyle button {
-    width: 100%;
-    padding: 10px;
+    width: 80px;
+    padding: 3px;
     border: none;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .btn-search {
 background: #424242;
@@ -91,4 +92,7 @@ color: #fff;
 .btn-search:active, .btn-search:hover {
 background: #1c1c1c;
 color: #fff;
+}
+.marginleft{
+    margin-left: 70px;
 }

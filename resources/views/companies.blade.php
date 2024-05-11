@@ -127,11 +127,11 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}" alt="logo" style="height:30px;width:50px;border-radius: 20px;"></a></td>
+                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}" alt="logo" style="height:40px;width:60px;border-radius: 20px;"></a></td>
                     <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
                     <td>{{ $c->deleted_at?'Inactive':'Active' }}</td>
-                    <td><a href="{{ route('employee.index',['id' => $c->id]) }}">Get employees</a></td>
+                    <td><a href="{{ route('employee.index',['id' => $c->id]) }}" style="text-decoration: none;">Get employees <i class="fa-solid fa-forward"></i></a></td>
                     @if(!$c->deleted_at)
                         <td><button onclick="openeditform({{ json_encode($c) }})"
                                 class="btn btn-primary btn-sm">Edit</button></td>
@@ -159,31 +159,37 @@
         <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            Name: <input type="text" name="name" id="edit-name" value="{{ old('name') }}"><br>
+            <h5>Company Edit Form :-</h5><br>
+            <b>Name:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name" value="{{ old('name') }}"><br>
             @if($errors->has('name'))
-                <p class="error">*{{ $errors->first('name') }}</p>
+                <p class="error marginleft">*{{ $errors->first('name') }}</p>
             @endif
-            Email: <input type="email" name="email" id="edit-email" value="{{ old('email') }}"><br>
+            <br>
+            <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email" value="{{ old('email') }}"><br>
             @if($errors->has('email'))
-                <p class="error">*{{ $errors->first('email') }}</p>
+                <p class="error marginleft">*{{ $errors->first('email') }}</p>
             @endif
-            logo: <input type="file" name="logo" id="edit-logo" value="{{ old('logo') }}"><br>
+            <br>
+            <b>Logo:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="logo" id="edit-logo" value="{{ old('logo') }}"><br>
             @if($errors->has('logo'))
-                <p class="error">*{{ $errors->first('logo') }}</p>
+                <p class="error marginleft">*{{ $errors->first('logo') }}</p>
             @endif
-            Website: <input type="text" name="website" id="edit-website"
+            <br>
+            <b>Website:</b> &nbsp;<input type="text" name="website" id="edit-website"
                 value="{{ old('website') }}"><br>
             @if($errors->has('website'))
-                <p class="error">*{{ $errors->first('website') }}</p>
+                <p class="error marginleft">*{{ $errors->first('website') }}</p>
             @endif
-            Location: <input type="text" name="location" id="edit-location"
+            <br>
+            <b>Location:</b> <input type="text" name="location" id="edit-location"
                 value="{{ old('location') }}"><br>
             @if($errors->has('location'))
-                <p class="error">*{{ $errors->first('location') }}</p>
+                <p class="error marginleft">*{{ $errors->first('location') }}</p>
             @endif
+            <br>
 
             <div style="display:flex;gap: 3px">
-                <button type="submit" style="background-color: green;">Submit</button>
+                <button type="submit" style="background-color: green;">Save</button>
                 <button type="button" onclick="window.location.reload()" style="background-color: red;">Cancel</button>
             </div>
 
