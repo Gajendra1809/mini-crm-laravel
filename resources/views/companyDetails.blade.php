@@ -35,8 +35,13 @@
                     <a class="nav-link" href="{{ route("employee.index") }}">Employee Dashboard</a>
                 </li>
                 <li>
+                    @if ($company->deleted_at!=null)
+                    <a href="{{ route("employee.create") }}"
+                        class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
+                    @else
                     <a href="{{ route("employee.create",['id'=>$company->id]) }}"
                         class="btn btn-outline-success my-2 my-sm-0">Add Employee</a>
+                    @endif
                 </li>
 
             </ul>
