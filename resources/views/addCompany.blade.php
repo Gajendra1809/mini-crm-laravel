@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
+    <link rel="icon" href="{{asset('logos/crmlogo.png')}}" type="image/icon type">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -111,56 +112,7 @@
             <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
         </footer>
 
-        <script>
-             document.addEventListener('DOMContentLoaded', function() {
-        const nameField = document.getElementById('name');
-        const emailField = document.getElementById('email');
-        const logoField = document.getElementById('logo');
-        const websiteField = document.getElementById('website');
-        const locationField = document.getElementById('location');
-        const submitBtn = document.getElementById('submitBtn');
-
-        nameField.addEventListener('input', validateForm);
-        emailField.addEventListener('input', validateForm);
-        logoField.addEventListener('change', validateForm);
-        websiteField.addEventListener('input', validateForm);
-
-        function validateForm() {
-            let nameValid = nameField.value.trim() !== '';
-            let emailValid = isValidEmail(emailField.value);
-            let logoValid = isPngFile(logoField.value);
-            let websiteValid = isValidUrl(websiteField.value);
-
-            document.getElementById('nameError').textContent = nameValid ? '' : 'Name is required';
-            document.getElementById('emailError').textContent = emailValid ? '' : 'Please enter a valid email address';
-            document.getElementById('logoError').textContent = logoValid ? '' : 'Please upload a PNG file';
-            document.getElementById('websiteError').textContent = websiteValid ? '' : 'Please enter a valid URL';
-
-            if (nameValid && emailValid && logoValid && websiteValid) {
-                submitBtn.style.display = 'block';
-            } else {
-                submitBtn.style.display = 'none';
-            }
-        }
-
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function isPngFile(filename) {
-            return filename.toLowerCase().endsWith('.png');
-        }
-
-        function isValidUrl(url) {
-            try {
-                new URL(url);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
-    });
-        </script>
+        <script src="{{asset('js/addCompany.js')}}"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
+    <link rel="icon" href="{{asset('logos/crmlogo.png')}}" type="image/icon type">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -127,11 +128,14 @@
         <tbody>
             @foreach($company as $c)
                 <tr>
-                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}" alt="logo" style="height:40px;width:60px;border-radius: 20px;"></a></td>
-                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                    <td><a href="{{ route('company.show',$c->id) }}"><img src="{{ $c->logo }}"
+                                alt="logo" style="height:40px;width:60px;border-radius: 20px;"></a></td>
+                    <td>{{ $c->name }}&nbsp;&nbsp;&nbsp;<a href="{{ $c->website }}" target="_blank"><i
+                                class="fa fa-external-link" aria-hidden="true"></i></a></td>
                     <td>{{ $c->email }}</td>
                     <td>{{ $c->deleted_at?'Inactive':'Active' }}</td>
-                    <td><a href="{{ route('employee.index',['id' => $c->id]) }}" style="text-decoration: none;">Get employees <i class="fa-solid fa-forward"></i></a></td>
+                    <td><a href="{{ route('employee.index',['id' => $c->id]) }}"
+                            style="text-decoration: none;">Get employees <i class="fa-solid fa-forward"></i></a></td>
                     @if(!$c->deleted_at)
                         <td><button onclick="openeditform({{ json_encode($c) }})"
                                 class="btn btn-primary btn-sm">Edit</button></td>
@@ -156,21 +160,24 @@
 
     <!-- This is popup form for editing company details -->
     <div class="popup-container" id="editform">
-        <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data" >
+        <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <h5>Company Edit Form :-</h5><br>
-            <b>Name:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name" value="{{ old('name') }}"><br>
+            <b>Name:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name"
+                value="{{ old('name') }}"><br>
             @if($errors->has('name'))
                 <p class="error marginleft">*{{ $errors->first('name') }}</p>
             @endif
             <br>
-            <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email" value="{{ old('email') }}"><br>
+            <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email"
+                value="{{ old('email') }}"><br>
             @if($errors->has('email'))
                 <p class="error marginleft">*{{ $errors->first('email') }}</p>
             @endif
             <br>
-            <b>Logo:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="logo" id="edit-logo" value="{{ old('logo') }}"><br>
+            <b>Logo:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="logo" id="edit-logo"
+                value="{{ old('logo') }}"><br>
             @if($errors->has('logo'))
                 <p class="error marginleft">*{{ $errors->first('logo') }}</p>
             @endif
@@ -236,12 +243,14 @@
 
 
         if ("{{ $errors->has('name') }}" || "{{ $errors->has('email') }}" ||
-            "{{ $errors->has('logo') }}" || "{{ $errors->has('website') }}" ||
-            "{{ $errors->has('location') }}")
-        {
+            "{{ $errors->has('logo') }}" ||
+            "{{ $errors->has('website') }}" ||
+            "{{ $errors->has('location') }}") {
             //console.log(localStorage.getItem('id'));
             openeditform();
-            document.getElementById("popup-form2").action ="{{ route('company.update', '') }}/" + localStorage.getItem('id');
+            document.getElementById("popup-form2").action =
+                "{{ route('company.update', '') }}/" + localStorage.getItem(
+                    'id');
 
         }
 

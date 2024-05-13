@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
+    <link rel="icon" href="{{asset('logos/crmlogo.png')}}" type="image/icon type">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -100,39 +101,7 @@
         <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const emailField = document.getElementById('email');
-        const passwordField = document.getElementById('password');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
-        const loginBtn=document.getElementById('loginBtn');
-
-        emailField.addEventListener('input', validateForm);
-        passwordField.addEventListener('input', validateForm);
-
-        function validateForm() {
-            let emailValid = isValidEmail(emailField.value);
-            let passwordValid = passwordField.value.length >= 5;
-
-            emailError.textContent = emailValid ? '' : 'Please enter a valid email address';
-            passwordError.textContent = passwordValid ? '' : 'Password must be at least 5 characters';
-
-            if (emailValid && passwordValid) {
-                loginBtn.style.display = 'block';
-            } else {
-                loginBtn.style.display = 'none';
-            }
-        }
-
-        
-
-        function isValidEmail(email) {
-            // Basic email validation, you can enhance this as needed
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-    });
-    </script>
+    <script src="{{asset('js/login.js')}}"> </script>
 </body>
 
 </html>

@@ -40,7 +40,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Display the landing page.
+     * Display the landing page with some analytics data.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
