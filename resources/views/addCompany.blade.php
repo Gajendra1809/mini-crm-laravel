@@ -64,33 +64,37 @@
             @csrf
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required value="{{ old('name') }}"><br>
+            <span id="nameError" class="error"></span>
             @if($errors->has('name'))
                 <p class="error">*{{ $errors->first('name') }}</p>
             @endif
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required value="{{ old('email') }}"><br>
+            <span id="emailError" class="error"></span>
             @if($errors->has('email'))
                 <p class="error">*{{ $errors->first('email') }}</p>
             @endif
             <label for="logo">Logo:</label>
             <input type="file" id="logo" name="logo" required value="{{ old('logo') }}"><br>
+            <span id="logoError" class="error"></span>
             @if($errors->has('logo'))
                 <p class="error">*{{ $errors->first('logo') }}</p>
             @endif
             <label for="website">Website:</label>
             <input type="text" id="website" name="website" required value="{{ old('website') }}"><br>
+            <span id="websiteError" class="error"></span>
             @if($errors->has('website'))
                 <p class="error">*{{ $errors->first('website') }}</p>
             @endif
             <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required
-                value="{{ old('location') }}"><br>
+            <input type="text" id="location" name="location" value="{{ old('location') }}"><br>
+            <span id="locationError" class="error"></span>
             @if($errors->has('location'))
                 <p class="error">*{{ $errors->first('location') }}</p>
             @endif
 
             <div style="display:flex;gap: 3px">
-                <button type="submit" style="background-color: green;">Submit</button>
+                <button id="submitBtn" type="submit" style="background-color: green;">Submit</button>
             </div>
 
         </form><br><br><br><br>
@@ -106,6 +110,57 @@
             </ul>
             <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
         </footer>
+
+        <script>
+             document.addEventListener('DOMContentLoaded', function() {
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const logoField = document.getElementById('logo');
+        const websiteField = document.getElementById('website');
+        const locationField = document.getElementById('location');
+        const submitBtn = document.getElementById('submitBtn');
+
+        nameField.addEventListener('input', validateForm);
+        emailField.addEventListener('input', validateForm);
+        logoField.addEventListener('change', validateForm);
+        websiteField.addEventListener('input', validateForm);
+
+        function validateForm() {
+            let nameValid = nameField.value.trim() !== '';
+            let emailValid = isValidEmail(emailField.value);
+            let logoValid = isPngFile(logoField.value);
+            let websiteValid = isValidUrl(websiteField.value);
+
+            document.getElementById('nameError').textContent = nameValid ? '' : 'Name is required';
+            document.getElementById('emailError').textContent = emailValid ? '' : 'Please enter a valid email address';
+            document.getElementById('logoError').textContent = logoValid ? '' : 'Please upload a PNG file';
+            document.getElementById('websiteError').textContent = websiteValid ? '' : 'Please enter a valid URL';
+
+            if (nameValid && emailValid && logoValid && websiteValid) {
+                submitBtn.style.display = 'block';
+            } else {
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isPngFile(filename) {
+            return filename.toLowerCase().endsWith('.png');
+        }
+
+        function isValidUrl(url) {
+            try {
+                new URL(url);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+    });
+        </script>
 </body>
 
 </html>

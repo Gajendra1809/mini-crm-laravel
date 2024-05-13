@@ -96,6 +96,7 @@
             <form id="popup-form" class="formstyle" action="" method="POST">
                 @csrf
                 @method('PUT')
+                <h5>Employee Edit form :-</h5><br>
                 <b>First Name:</b> <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
                 @if($errors->has('fname'))
                     <p class="error marginleft">*{{ $errors->first('fname') }}</p>

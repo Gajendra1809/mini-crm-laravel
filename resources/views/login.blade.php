@@ -63,6 +63,7 @@
                                 </label>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Email"
                                     required value="{{ old('email') }}" />
+                                    <span id="emailError" class="text-danger"></span>
                                 @if($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -73,12 +74,13 @@
                                 </label>
                                 <input type="password" name="password" class="form-control" id="password"
                                     placeholder="Password" required value="{{ old('password') }}" />
+                                    <span id="passwordError" class="text-danger"></span>
                                 @if($errors->has('password'))
                                     <span
                                         class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
                             </div><br>
-                            <button class="btn btn-danger" type="submit">Login</button>
+                            <button id="loginBtn" class="btn btn-danger" type="submit">Login</button>
                         </form>
                     </div>
                 </div>
@@ -97,6 +99,40 @@
         </ul>
         <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const loginBtn=document.getElementById('loginBtn');
+
+        emailField.addEventListener('input', validateForm);
+        passwordField.addEventListener('input', validateForm);
+
+        function validateForm() {
+            let emailValid = isValidEmail(emailField.value);
+            let passwordValid = passwordField.value.length >= 5;
+
+            emailError.textContent = emailValid ? '' : 'Please enter a valid email address';
+            passwordError.textContent = passwordValid ? '' : 'Password must be at least 5 characters';
+
+            if (emailValid && passwordValid) {
+                loginBtn.style.display = 'block';
+            } else {
+                loginBtn.style.display = 'none';
+            }
+        }
+
+        
+
+        function isValidEmail(email) {
+            // Basic email validation, you can enhance this as needed
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    });
+    </script>
 </body>
 
 </html>

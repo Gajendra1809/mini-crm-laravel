@@ -67,32 +67,8 @@
         <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
             method="POST">
             @csrf
-            <label for="fname"><b> First Name:</b></label>
-            <input type="text" name="fname" id="fname" value="{{ old('fname') }}">
-            @if($errors->has('fname'))
-                <p class="error">*{{ $errors->first('fname') }}</p>
-            @endif
-
-            <label for="lname"><b> Last Name:</b></label>
-            <input type="text" name="lname" id="lname" value="{{ old('lname') }}">
-            @if($errors->has('lname'))
-                <p class="error">*{{ $errors->first('lname') }}</p>
-            @endif
-
-            <label for="email"><b> Email:</b></label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}">
-            @if($errors->has('email'))
-                <p class="error">*{{ $errors->first('email') }}</p>
-            @endif
-
-            <label for="phone"><b> Phone:</b></label>
-            <input type="text" name="phone" id="phone" value="{{ old('phone') }}">
-            @if($errors->has('phone'))
-                <p class="error">*{{ $errors->first('phone') }}</p>
-            @endif
-
             <label for="company_id"><b> Company:</b></label>
-            <select class="js-example-basic-single" name="company_id">
+            <select class="js-example-basic-single" name="company_id" id="companyId">
                 <option
                     value="{{ request('id')?request('id'):'' }}">
                     {{ $companyData?$companyData->name:'' }}</option>
@@ -100,12 +76,41 @@
                     <option value="{{ $c->id }}">{{ $c->name }}</option>
                 @endforeach
             </select>
+            <span id="companyError" class="error"></span><br>
             @if($errors->has('company_id'))
                 <p class="error">*{{ $errors->first('company_id') }}</p>
             @endif
+            <br>
+            <label for="fname"><b> First Name:</b></label>
+            <input type="text" name="fname" id="fname" required value="{{ old('fname') }}">
+            <span id="fnameError" class="error"></span><br>
+            @if($errors->has('fname'))
+                <p class="error">*{{ $errors->first('fname') }}</p>
+            @endif
+
+            <label for="lname"><b> Last Name:</b></label>
+            <input type="text" name="lname" id="lname" required value="{{ old('lname') }}">
+            <span id="lnameError" class="error"></span><br>
+            @if($errors->has('lname'))
+                <p class="error">*{{ $errors->first('lname') }}</p>
+            @endif
+
+            <label for="email"><b> Email:</b></label>
+            <input type="email" name="email" id="email" required value="{{ old('email') }}">
+            <span id="emailError" class="error"></span><br>
+            @if($errors->has('email'))
+                <p class="error">*{{ $errors->first('email') }}</p>
+            @endif
+
+            <label for="phone"><b> Phone:</b></label>
+            <input type="text" name="phone" id="phone" required value="{{ old('phone') }}">
+            <span id="phoneError" class="error"></span><br>
+            @if($errors->has('phone'))
+                <p class="error">*{{ $errors->first('phone') }}</p>
+            @endif
 
             <div style="display:flex;justify-content: center;margin-top: 20px;">
-                <button type="submit">Submit</button>
+                <button id="submitBtn" type="submit">Submit</button>
             </div>
         </form><br><br><br><br>
 
@@ -125,6 +130,55 @@
             $(document).ready(function () {
                 $('.js-example-basic-single').select2();
             });
+
+            document.addEventListener('DOMContentLoaded', function() {
+        const fnameField = document.getElementById('fname');
+        const lnameField = document.getElementById('lname');
+        const emailField = document.getElementById('email');
+        const phoneField = document.getElementById('phone');
+        const companyField = document.getElementById('companyId');
+        console.log(companyField);
+        const submitBtn = document.getElementById('submitBtn');
+
+        fnameField.addEventListener('input', validateForm);
+        lnameField.addEventListener('input', validateForm);
+        emailField.addEventListener('input', validateForm);
+        phoneField.addEventListener('input', validateForm);
+        companyField.addEventListener('click', function() {
+        validateForm();
+    });
+
+        function validateForm() {
+            console.log('Form validation triggered');
+            let fnameValid = fnameField.value.trim() !== '';
+            let lnameValid = lnameField.value.trim() !== '';
+            let emailValid = isValidEmail(emailField.value);
+            let phoneValid = phoneField.value.trim().length >= 10;
+            let companyValid = companyField.value !== '';
+
+            const fnameError = document.getElementById('fnameError');
+            const lnameError = document.getElementById('lnameError');
+            const emailError = document.getElementById('emailError');
+            const phoneError = document.getElementById('phoneError');
+            const companyError = document.getElementById('companyError');
+
+            fnameError.textContent = fnameValid ? '' : 'First Name is required';
+            lnameError.textContent = lnameValid ? '' : 'Last Name is required';
+            emailError.textContent = emailValid ? '' : 'Please enter a valid email address';
+            phoneError.textContent = phoneValid ? '' : 'Phone number must be at least 10 characters';
+            companyError.textContent = companyValid ? '' : 'Please select a company';
+
+            if (fnameValid && lnameValid && emailValid && phoneValid && companyValid) {
+                submitBtn.style.display ="block";
+            } else {
+                submitBtn.style.display ="none";
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    });
         </script>
 </body>
 

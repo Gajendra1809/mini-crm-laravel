@@ -98,10 +98,23 @@
                                         </tbody>
                                     </table>
                                 </div><br>
-                                <div class="px-3"><a
-                                        href="{{ route('employee.index',['id' => $company->id]) }}"
-                                        class="btn btn-primary btn-block btn-sm">Get Employees</a></div>
+                                <div class="px-3">
+                                    @if ($company->deleted_at!=null)
+                                    <a href="{{route('company.restore',['id'=>$company->id])}}" class="btn btn-primary btn-block btn-sm">Re-Store</a>
+                                    <form id="delete-form-{{ $company->id }}"
+                                action="{{ route('company.destroy', $company->id) }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form><a href="#" class="btn btn-danger btn-sm"
+                                onclick="if(confirm('Are you sure you want to permanantly delete this company?')) { event.preventDefault(); document.getElementById('delete-form-{{ $company->id }}').submit(); }">Permanantly Delete this Company ?</a>
+                                    @else
+                                    <a href="{{ route('employee.index',['id' => $company->id]) }}"
+                                        class="btn btn-primary btn-block btn-sm">Get Employees</a>
+                                    @endif
+                                    </div>
                             </div>
+                                
                         </div>
 
                         <div class="col-md-5">

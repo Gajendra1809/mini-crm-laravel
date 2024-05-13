@@ -8,8 +8,8 @@
 }
 
 .formstyle input[type="text"],
-.formstyle input[type="email"],
-.formstyle select {
+.formstyle input[type="email"]
+{
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

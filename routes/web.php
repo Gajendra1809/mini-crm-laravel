@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function(){
 
     //api for getting latitude and longitude for given city name
     Route::get('/map',[CompanyController::class,'map'])->name('company.map');
+
+    //for handling the company restore request
+    Route::get('/restore',[CompanyController::class,'restore'])->name('company.restore');
     
 });
 

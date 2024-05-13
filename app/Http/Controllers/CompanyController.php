@@ -156,9 +156,29 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        $company = Company::findOrFail($id);
+        $company = Company::withTrashed()->findOrFail($id);
+        if($company->deleted_at!=null){
+            $company->forceDelete();
+            return redirect()->route('company.index')->with('success', 'Company deleted Permanantly');
+        }else{
         $company->delete();
         return redirect()->route('company.index')->with('success', 'Company deleted successfully');
+        }
+        
+    }
+
+
+    /**
+     * Re-Store the soft deleted company from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore(Request $request)
+    {
+        $company = Company::withTrashed()->findOrFail($request->id);
+        $company->restore();
+        return redirect()->back()->with('success', 'Company Re-Stored successfully');
     }
 
 

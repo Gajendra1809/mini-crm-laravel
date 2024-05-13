@@ -156,7 +156,7 @@
 
     <!-- This is popup form for editing company details -->
     <div class="popup-container" id="editform">
-        <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data">
+        <form id="popup-form2" class="formstyle" action="" method="POST" enctype="multipart/form-data" >
             @csrf
             @method('PUT')
             <h5>Company Edit Form :-</h5><br>

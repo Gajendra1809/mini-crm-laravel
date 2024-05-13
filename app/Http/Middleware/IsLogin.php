@@ -18,6 +18,6 @@ class IsLogin
         if(!auth()->user()){
         return $next($request);
         }
-        return redirect()->back()->with('error','Please logout first...');
+        return redirect('/')->with('error','Please logout first...');
     }
 }

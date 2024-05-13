@@ -25,7 +25,7 @@ class CompanyRequest extends FormRequest
             "name"=>"required|min:5",
             "email"=>"required|email",
             "logo"=>"image|dimensions:min_width=100,min_height=100",
-            "website"=>"required"
+            "website"=>"required|url"
         ];
     }
 
