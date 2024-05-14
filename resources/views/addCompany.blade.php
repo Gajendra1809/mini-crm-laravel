@@ -63,25 +63,25 @@
         <form class="formstyle container" action="{{ route('company.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
-            <label for="name">Name:</label>
+            <label for="name">Name*:</label>
             <input type="text" id="name" name="name" required value="{{ old('name') }}"><br>
             <span id="nameError" class="error"></span>
             @if($errors->has('name'))
                 <p class="error">*{{ $errors->first('name') }}</p>
             @endif
-            <label for="email">Email:</label>
+            <label for="email">Email*:</label>
             <input type="email" id="email" name="email" required value="{{ old('email') }}"><br>
             <span id="emailError" class="error"></span>
             @if($errors->has('email'))
                 <p class="error">*{{ $errors->first('email') }}</p>
             @endif
-            <label for="logo">Logo:</label>
+            <label for="logo">Logo*:</label>
             <input type="file" id="logo" name="logo" required value="{{ old('logo') }}"><br>
             <span id="logoError" class="error"></span>
             @if($errors->has('logo'))
                 <p class="error">*{{ $errors->first('logo') }}</p>
             @endif
-            <label for="website">Website:</label>
+            <label for="website">Website*:</label>
             <input type="text" id="website" name="website" required value="{{ old('website') }}"><br>
             <span id="websiteError" class="error"></span>
             @if($errors->has('website'))

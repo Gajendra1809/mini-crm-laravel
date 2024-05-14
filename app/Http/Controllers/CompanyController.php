@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
-use App\Notifications\NewCompanyRegistration;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Str;
 use Storage;
-use Notification;
 use Illuminate\Support\Facades\Response;
 use GuzzleHttp\Client;
+use App\Jobs\NotificationJob;
 
 /**
  * Controller for handling Companies create, read, update, delete actions.
@@ -71,6 +70,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request,)
     {
+        
         $request->validated();
 
         $logo=$request->file("logo");
@@ -85,10 +85,10 @@ class CompanyController extends Controller
         $company->logo = $url;
         $company->website = $request->website;
         $company->location=$request->location;
-    
+        
         try{
         $company->save();
-        //Notification::route('mail', $company->email)->notify(new NewCompanyRegistration($name));
+        //NotificationJob::dispatch($company->email,$company->name);
         return redirect()->route('company.index')->with('success', 'Company created successfully');
         }catch(\Exception $e){
         return redirect()->route('company.create')->withInput()->with('error', 'Company not created');

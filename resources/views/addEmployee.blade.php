@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniCRM</title>
-    <link rel="icon" href="{{asset('logos/crmlogo.png')}}" type="image/icon type">
+    <link rel="icon" href="{{asset('logos/crmlogo.png')}}" type="image/icon type">*
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -68,7 +68,7 @@
         <form id="popup-form" class="formstyle container" action="{{ route('employee.store') }}"
             method="POST">
             @csrf
-            <label for="company_id"><b> Company:</b></label>
+            <label for="company_id"><b> Company*:</b></label>
             <select class="js-example-basic-single" name="company_id" id="companyId">
                 <option
                     value="{{ request('id')?request('id'):'' }}">
@@ -82,28 +82,28 @@
                 <p class="error">*{{ $errors->first('company_id') }}</p>
             @endif
             <br>
-            <label for="fname"><b> First Name:</b></label>
+            <label for="fname"><b> First Name*:</b></label>
             <input type="text" name="fname" id="fname" required value="{{ old('fname') }}">
             <span id="fnameError" class="error"></span><br>
             @if($errors->has('fname'))
                 <p class="error">*{{ $errors->first('fname') }}</p>
             @endif
 
-            <label for="lname"><b> Last Name:</b></label>
+            <label for="lname"><b> Last Name*:</b></label>
             <input type="text" name="lname" id="lname" required value="{{ old('lname') }}">
             <span id="lnameError" class="error"></span><br>
             @if($errors->has('lname'))
                 <p class="error">*{{ $errors->first('lname') }}</p>
             @endif
 
-            <label for="email"><b> Email:</b></label>
+            <label for="email"><b> Email*:</b></label>
             <input type="email" name="email" id="email" required value="{{ old('email') }}">
             <span id="emailError" class="error"></span><br>
             @if($errors->has('email'))
                 <p class="error">*{{ $errors->first('email') }}</p>
             @endif
 
-            <label for="phone"><b> Phone:</b></label>
+            <label for="phone"><b> Phone*:</b></label>
             <input type="text" name="phone" id="phone" required value="{{ old('phone') }}">
             <span id="phoneError" class="error"></span><br>
             @if($errors->has('phone'))

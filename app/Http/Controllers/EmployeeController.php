@@ -10,7 +10,7 @@ use App\Models\Company;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Session;
 
 /**
  * Controller for handling Employees create, read, update, delete actions.
@@ -92,11 +92,13 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->phone = $request->phone;
         $employee->company_id = $request->company_id;
+
+        session::put('url',url()->previous());
         try{
         $employee->save();
         return redirect()->route('employee.index',['id' => $request->company_id])->with('success', 'Employee created successfully');
         }catch(\Exception $e){
-        return redirect()->route('employee.create')->withInput()->with('error', 'Employee not created');
+        return redirect(session::get('url'))->withInput()->with('error', 'Employee not created, Email already exists...');
         }
     }
 

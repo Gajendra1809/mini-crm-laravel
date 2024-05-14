@@ -23,7 +23,7 @@ class AuthController extends Controller
       
       $cred= $request->only(["email","password"]);
       if(Auth::attempt($cred)){
-        return redirect()->route('landing');
+        return redirect()->route('landing')->with('success','Logged in...');
       }
       return redirect('/login')->with('error','Please provide correct credentials...');
     }
