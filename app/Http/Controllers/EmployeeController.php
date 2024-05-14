@@ -18,7 +18,18 @@ use Illuminate\Support\Facades\Session;
  */
 class EmployeeController extends Controller
 {
-    
+ 
+    /**
+    * Display a listing of employees.
+    *
+    * This method retrieves either all employees or employees belonging to a specific company,
+    * depending on whether a company ID is provided in the request. If the request is made via AJAX,
+    * the data is formatted as JSON using DataTables for easy rendering in the front end.
+    * If no company ID is provided, the method returns a view for the employee dashboard.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    *
+    */
     public function index(Request $request)
     {
         $companyId = $request->id;
@@ -29,8 +40,7 @@ class EmployeeController extends Controller
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $actionBtn = '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
-                        return $actionBtn;
+                        return '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -42,8 +52,7 @@ class EmployeeController extends Controller
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $actionBtn = '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
-                        return $actionBtn;
+                        return '<button onclick="openform('.htmlspecialchars(json_encode($row)).')">Edit</button> <button onclick="deletefun('.$row->id.')">Delete</button>';
                     })
                     ->addColumn('company_name',function($row){
                         return $row->company?$row->company->name:'Company not found';
@@ -53,8 +62,6 @@ class EmployeeController extends Controller
             }
             return view('employeeDash');
         }
-
-        
     }
 
 

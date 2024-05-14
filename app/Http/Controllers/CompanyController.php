@@ -212,7 +212,8 @@ class CompanyController extends Controller
      * Fetches latitude and longitude coordinates for a given city using the OpenWeatherMap API.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * returns the latitude and longitude of the requested city in Json
+     *
      */
      public function map(Request $request){
         $city=$request->location;
