@@ -10,6 +10,9 @@ use Illuminate\Queue\SerializesModels;
 use App\Notifications\NewCompanyRegistration;
 use Notification;
 
+/**
+ * Job for handling email notifications
+ */
 class NotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

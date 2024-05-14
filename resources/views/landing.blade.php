@@ -49,11 +49,13 @@
         <div class="alert alert-success msgpopup">
             <strong>Success!</strong> {{ session('success') }}👍
         </div>
+        {{ session()->forget('success') }}
     @endif
     @if(session()->has('error'))
         <div class="alert alert-danger msgpopup">
             <strong>Something went wrong!</strong> {{ session('error') }}
         </div>
+        {{ session()->forget('error') }}
     @endif
 
     <div style="display: flex;justify-content: center;align-items: center;margin-left: 150px;margin-top: 100px;">
