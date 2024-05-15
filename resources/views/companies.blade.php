@@ -164,14 +164,14 @@
             @csrf
             @method('PUT')
             <h5>Company Edit Form :-</h5><br>
-            <b>Name:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name"
+            <b>Name*:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name"
                 value="{{ old('name') }}"><br>
                 <span id="nameError" class="error marginleft"></span>
             @if($errors->has('name'))
                 <p class="error marginleft">*{{ $errors->first('name') }}</p>
             @endif
             <br>
-            <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email"
+            <b>Email*:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email"
                 value="{{ old('email') }}"><br>
                 <span id="emailError" class="error marginleft"></span>
             @if($errors->has('email'))
@@ -185,7 +185,7 @@
                 <p class="error marginleft">*{{ $errors->first('logo') }}</p>
             @endif
             <br>
-            <b>Website:</b> &nbsp;<input type="text" name="website" id="edit-website"
+            <b>Website*:</b> &nbsp;<input type="text" name="website" id="edit-website"
                 value="{{ old('website') }}"><br>
                 <span id="websiteError" class="error marginleft"></span>
             @if($errors->has('website'))

@@ -17,7 +17,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/employees.css') }}">
-</head>
+</head>*
 
 <body>
     <!-- This is Navigation bar -->
@@ -103,25 +103,25 @@
                 @csrf
                 @method('PUT')
                 <h5>Employee Edit form :-</h5><br>
-                <b>First Name:</b> <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+                <b>First Name*:</b> <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
                 <span id="fnameError" class="error marginleft"></span>
                 @if($errors->has('fname'))
                     <p class="error marginleft">*{{ $errors->first('fname') }}</p>
                 @endif
                 <br>
-                <b>Last Name:</b> <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+                <b>Last Name*:</b> <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
                 <span id="lnameError" class="error marginleft"></span>
                 @if($errors->has('lname'))
                     <p class="error marginleft">*{{ $errors->first('lname') }}</p>
                 @endif
                 <br>
-                <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+                <b>Email*:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email" value="{{ old('email') }}"><br>
                 <span id="emailError" class="error marginleft"></span>
                 @if($errors->has('email'))
                     <p class="error marginleft">*{{ $errors->first('email') }}</p>
                 @endif
                 <br>
-                <b>Phone:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+                <b>Phone*:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
                 <span id="phoneError" class="error marginleft"></span>
                 @if($errors->has('phone'))
                     <p class="error marginleft">*{{ $errors->first('phone') }}</p>
