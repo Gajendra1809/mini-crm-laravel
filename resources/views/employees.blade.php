@@ -104,27 +104,31 @@
                 @method('PUT')
                 <h5>Employee Edit form :-</h5><br>
                 <b>First Name:</b> <input type="text" name="fname" id="fname" value="{{ old('fname') }}"><br>
+                <span id="fnameError" class="error marginleft"></span>
                 @if($errors->has('fname'))
                     <p class="error marginleft">*{{ $errors->first('fname') }}</p>
                 @endif
                 <br>
                 <b>Last Name:</b> <input type="text" name="lname" id="lname" value="{{ old('lname') }}"><br>
+                <span id="lnameError" class="error marginleft"></span>
                 @if($errors->has('lname'))
                     <p class="error marginleft">*{{ $errors->first('lname') }}</p>
                 @endif
                 <br>
                 <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+                <span id="emailError" class="error marginleft"></span>
                 @if($errors->has('email'))
                     <p class="error marginleft">*{{ $errors->first('email') }}</p>
                 @endif
                 <br>
                 <b>Phone:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="phone" id="phone" value="{{ old('phone') }}"><br>
+                <span id="phoneError" class="error marginleft"></span>
                 @if($errors->has('phone'))
                     <p class="error marginleft">*{{ $errors->first('phone') }}</p>
                 @endif
                 <br>
                 <div style="display:flex;gap: 3px">
-                    <button type="submit" style="background-color: green;">Save</button>
+                    <button id="saveBtn" type="submit" style="background-color: green;">Save</button>
                     <button type="button" onclick="window.location.reload()"
                         style="background-color: red;">Cancel</button>
                 </div>
@@ -231,6 +235,46 @@
                 'eid');
     }
 
+    //edit form vlidations
+    document.addEventListener('DOMContentLoaded', function() {
+const fnameField = document.getElementById('fname');
+const lnameField = document.getElementById('lname');
+const emailField = document.getElementById('email');
+const phoneField = document.getElementById('phone');
+const submitBtn = document.getElementById('saveBtn');
+
+fnameField.addEventListener('input', validateForm);
+lnameField.addEventListener('input', validateForm);
+emailField.addEventListener('input', validateForm);
+phoneField.addEventListener('input', validateForm);
+
+function validateForm() {
+let fnameValid = fnameField.value.trim() !== '';
+let lnameValid = lnameField.value.trim() !== '';
+let emailValid = isValidEmail(emailField.value);
+let phoneValid = phoneField.value.trim().length >= 10;
+
+const fnameError = document.getElementById('fnameError');
+const lnameError = document.getElementById('lnameError');
+const emailError = document.getElementById('emailError');
+const phoneError = document.getElementById('phoneError');
+
+fnameError.textContent = fnameValid ? '' : '*First Name is required';
+lnameError.textContent = lnameValid ? '' : '*Last Name is required';
+emailError.textContent = emailValid ? '' : '*Please enter a valid email address';
+phoneError.textContent = phoneValid ? '' : '*Phone number must be at least 10 characters';
+
+if (fnameValid && lnameValid && emailValid && phoneValid) {
+    submitBtn.style.display ="block";
+} else {
+    submitBtn.style.display ="none";
+}
+}
+
+function isValidEmail(email) {
+return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+});
 </script>
 
 </html>

@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let logoValid = isPngFile(logoField.value);
         let websiteValid = isValidUrl(websiteField.value);
 
-        document.getElementById('nameError').textContent = nameValid ? '' : 'Name is required';
-        document.getElementById('emailError').textContent = emailValid ? '' : 'Please enter a valid email address';
-        document.getElementById('logoError').textContent = logoValid ? '' : 'Please upload a PNG file';
-        document.getElementById('websiteError').textContent = websiteValid ? '' : 'Please enter a valid URL';
+        document.getElementById('nameError').textContent = nameValid ? '' : '*Name is required';
+        document.getElementById('emailError').textContent = emailValid ? '' : '*Please enter a valid email address';
+        document.getElementById('logoError').textContent = logoValid ? '' : '*Please upload a PNG file';
+        document.getElementById('websiteError').textContent = websiteValid ? '' : '*Please enter a valid URL';
 
         if (nameValid && emailValid && logoValid && websiteValid) {
             submitBtn.style.display = 'block';

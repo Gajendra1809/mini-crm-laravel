@@ -33,11 +33,11 @@ const emailError = document.getElementById('emailError');
 const phoneError = document.getElementById('phoneError');
 const companyError = document.getElementById('companyError');
 
-fnameError.textContent = fnameValid ? '' : 'First Name is required';
-lnameError.textContent = lnameValid ? '' : 'Last Name is required';
-emailError.textContent = emailValid ? '' : 'Please enter a valid email address';
-phoneError.textContent = phoneValid ? '' : 'Phone number must be at least 10 characters';
-companyError.textContent = companyValid ? '' : 'Please select a company';
+fnameError.textContent = fnameValid ? '' : '*First Name is required';
+lnameError.textContent = lnameValid ? '' : '*Last Name is required';
+emailError.textContent = emailValid ? '' : '*Please enter a valid email address';
+phoneError.textContent = phoneValid ? '' : '*Phone number must be at least 10 characters';
+companyError.textContent = companyValid ? '' : '*Please select a company';
 
 if (fnameValid && lnameValid && emailValid && phoneValid && companyValid) {
     submitBtn.style.display ="block";

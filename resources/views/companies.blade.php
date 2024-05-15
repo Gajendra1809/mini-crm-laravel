@@ -166,37 +166,42 @@
             <h5>Company Edit Form :-</h5><br>
             <b>Name:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="edit-name"
                 value="{{ old('name') }}"><br>
+                <span id="nameError" class="error marginleft"></span>
             @if($errors->has('name'))
                 <p class="error marginleft">*{{ $errors->first('name') }}</p>
             @endif
             <br>
             <b>Email:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="edit-email"
                 value="{{ old('email') }}"><br>
+                <span id="emailError" class="error marginleft"></span>
             @if($errors->has('email'))
                 <p class="error marginleft">*{{ $errors->first('email') }}</p>
             @endif
             <br>
             <b>Logo:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="logo" id="edit-logo"
                 value="{{ old('logo') }}"><br>
+                <span id="logoError" class="error marginleft"></span>
             @if($errors->has('logo'))
                 <p class="error marginleft">*{{ $errors->first('logo') }}</p>
             @endif
             <br>
             <b>Website:</b> &nbsp;<input type="text" name="website" id="edit-website"
                 value="{{ old('website') }}"><br>
+                <span id="websiteError" class="error marginleft"></span>
             @if($errors->has('website'))
                 <p class="error marginleft">*{{ $errors->first('website') }}</p>
             @endif
             <br>
             <b>Location:</b> <input type="text" name="location" id="edit-location"
                 value="{{ old('location') }}"><br>
+                <span id="locationError" class="error marginleft"></span>
             @if($errors->has('location'))
                 <p class="error marginleft">*{{ $errors->first('location') }}</p>
             @endif
             <br>
 
             <div style="display:flex;gap: 3px">
-                <button type="submit" style="background-color: green;">Save</button>
+                <button id="saveBtn" type="submit" style="background-color: green;">Save</button>
                 <button type="button" onclick="window.location.reload()" style="background-color: red;">Cancel</button>
             </div>
 
@@ -253,6 +258,54 @@
                     'id');
 
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const nameField = document.getElementById('edit-name');
+    const emailField = document.getElementById('edit-email');
+    const logoField = document.getElementById('edit-logo');
+    const websiteField = document.getElementById('edit-website');
+    const submitBtn = document.getElementById('saveBtn');
+
+    nameField.addEventListener('input', validateForm);
+    emailField.addEventListener('input', validateForm);
+    //logoField.addEventListener('change', validateForm);
+    websiteField.addEventListener('input', validateForm);
+
+    function validateForm() {
+        let nameValid = nameField.value.trim() !== '';
+        let emailValid = isValidEmail(emailField.value);
+        //let logoValid = isPngFile(logoField.value);
+        let websiteValid = isValidUrl(websiteField.value);
+
+        document.getElementById('nameError').textContent = nameValid ? '' : '*Name is required';
+        document.getElementById('emailError').textContent = emailValid ? '' : '*Please enter a valid email address';
+        //document.getElementById('logoError').textContent = logoValid ? '' : '*Please upload a PNG file';
+        document.getElementById('websiteError').textContent = websiteValid ? '' : '*Please enter a valid URL';
+
+        if (nameValid && emailValid && websiteValid) {
+            submitBtn.style.display = 'block';
+        } else {
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isPngFile(filename) {
+        return filename.toLowerCase().endsWith('.png');
+    }
+
+    function isValidUrl(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+});
 
     </script>
 </body>
