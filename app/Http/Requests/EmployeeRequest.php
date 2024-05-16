@@ -24,7 +24,7 @@ class EmployeeRequest extends FormRequest
         return [
             "fname"=>"required",
             "lname"=>"required",
-            "email"=>"email",
+            "email"=>"email|unique:employees,email",
             "phone"=>"required|min:10|numeric",
             "company_id"=>"required"
         ];

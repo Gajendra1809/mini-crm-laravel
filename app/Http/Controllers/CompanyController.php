@@ -11,6 +11,7 @@ use Storage;
 use Illuminate\Support\Facades\Response;
 use GuzzleHttp\Client;
 use App\Jobs\NotificationJob;
+use App\Http\Requests\CompanyUpdateRequest;
 
 /**
  * Controller for handling Companies create, read, update, delete actions.
@@ -41,7 +42,7 @@ class CompanyController extends Controller
         if ($request->has('search')) {
             $search = strtolower($request->search);
             if($search!=''){
-            $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->withTrashed()->paginate(10);
+                $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->withTrashed()->paginate(10);
             }else{
                 $company = Company::whereRaw('LOWER(name) like ?', ['%'.$search.'%'])->paginate(10);
             }
@@ -86,11 +87,11 @@ class CompanyController extends Controller
         $company->website = $request->website;
         $company->location=$request->location;
         
-        try{
+        try {
         $company->save();
         //NotificationJob::dispatch($company->email,$company->name);
         return redirect()->route('company.index')->with('success', 'Company created successfully');
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
         return redirect()->route('company.create')->withInput()->with('error', 'Company not created');
         }
     }
@@ -122,7 +123,7 @@ class CompanyController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CompanyRequest $request, string $id)
+    public function update(CompanyUpdateRequest $request, string $id)
     {
         $request->validated();
         $company= Company::find($id);
@@ -139,12 +140,12 @@ class CompanyController extends Controller
         $company->logo = $url;
       }
 
-      try{
+      try {
         $company->save();
         return redirect()->back()->with('success', 'Company updated successfully');
-     }catch(\Exception $e){
+     } catch(\Exception $e) {
         return redirect()->back()->with('error', 'Company not updated');
-    }
+     }
     }
 
 
@@ -157,12 +158,12 @@ class CompanyController extends Controller
     public function destroy(string $id)
     {
         $company = Company::withTrashed()->findOrFail($id);
-        if($company->deleted_at!=null){
+        if($company->deleted_at!=null) {
             $company->forceDelete();
             return redirect()->route('company.index')->with('success', 'Company deleted Permanantly');
-        }else{
-        $company->delete();
-        return redirect()->route('company.index')->with('success', 'Company deleted successfully');
+        } else {
+            $company->delete();
+            return redirect()->route('company.index')->with('success', 'Company deleted successfully');
         }
         
     }

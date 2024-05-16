@@ -117,7 +117,7 @@
     <table class="table container table table-striped table-hover">
         <thead>
             <tr>
-                <th scope="col">Logo</th>
+                <th scope="col">Logo/Profile</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>

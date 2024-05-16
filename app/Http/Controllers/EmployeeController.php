@@ -101,10 +101,10 @@ class EmployeeController extends Controller
         $employee->company_id = $request->company_id;
 
         session::put('url',url()->previous());
-        try{
+        try {
         $employee->save();
         return redirect()->route('employee.index',['id' => $request->company_id])->with('success', 'Employee created successfully');
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
         return redirect(session::get('url'))->withInput()->with('error', 'Employee not created, Email already exists...');
         }
     }
@@ -143,11 +143,11 @@ class EmployeeController extends Controller
         $emp->lname = $request->lname;
         $emp->email = $request->email;
         $emp->phone = $request->phone;
-        try{
+        try {
             $emp->save();
             return redirect()->back()->with('success', 'Employee updated successfully');
-          }catch(\Exception $e){
-          return redirect()->back()->with('error', 'Employee not updated');
+          } catch(\Exception $e) {
+            return redirect()->back()->with('error', 'Employee not updated');
           }
     }
 

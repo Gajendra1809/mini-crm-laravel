@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Employee;
+use App\Models\User;
 use Carbon\Carbon;
 
 /**
@@ -21,11 +22,18 @@ class AuthController extends Controller
      */
     public function login(Request $request){
       
-      $cred= $request->only(["email","password"]);
-      if(Auth::attempt($cred)){
-        return redirect()->route('landing')->with('success','Logged in...');
-      }
-      return redirect('/login')->with('error','Please provide correct credentials...');
+      $credentials = $request->only(["email", "password"]);
+      $user = User::where('email', $credentials['email'])->first();
+
+       if($user){
+          if (Auth::attempt($credentials)){
+            return redirect()->route('landing')->with('success', 'Logged in successfully');
+          }else{
+            return redirect('/login')->withInput()->with('passError', '*Wrong password. Please try again.');
+          }
+        }else{
+          return redirect('/login')->withInput()->with('error', 'Email not registered. Please check and try again.');
+        }
     }
 
     /**

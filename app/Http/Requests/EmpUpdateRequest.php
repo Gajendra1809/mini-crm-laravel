@@ -21,10 +21,11 @@ class EmpUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $employeeId = $this->route('employee');
         return [
             "fname"=>"required",
             "lname"=>"required",
-            "email"=>"email",
+            "email"=>"email|unique:employees,email," . $employeeId,
             "phone"=>"required|min:10|numeric"
         ];
     }

@@ -24,7 +24,7 @@ console.log('Form validation triggered');
 let fnameValid = fnameField.value.trim() !== '';
 let lnameValid = lnameField.value.trim() !== '';
 let emailValid = isValidEmail(emailField.value);
-let phoneValid = phoneField.value.trim().length >= 10;
+let phoneValid = isValidPhone(phoneField.value);
 let companyValid = companyField.value !== '';
 
 const fnameError = document.getElementById('fnameError');
@@ -36,7 +36,7 @@ const companyError = document.getElementById('companyError');
 fnameError.textContent = fnameValid ? '' : '*First Name is required';
 lnameError.textContent = lnameValid ? '' : '*Last Name is required';
 emailError.textContent = emailValid ? '' : '*Please enter a valid email address';
-phoneError.textContent = phoneValid ? '' : '*Phone number must be at least 10 characters';
+phoneError.textContent = phoneValid ? '' : '*Phone number must be 10 characters and Numeric only';
 companyError.textContent = companyValid ? '' : '*Please select a company';
 
 if (fnameValid && lnameValid && emailValid && phoneValid && companyValid) {
@@ -49,4 +49,9 @@ if (fnameValid && lnameValid && emailValid && phoneValid && companyValid) {
 function isValidEmail(email) {
 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+function isValidPhone(phone) {
+    return /^\d{10}$/.test(phone);
+}
+
 });

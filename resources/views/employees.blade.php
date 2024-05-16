@@ -252,7 +252,7 @@ function validateForm() {
 let fnameValid = fnameField.value.trim() !== '';
 let lnameValid = lnameField.value.trim() !== '';
 let emailValid = isValidEmail(emailField.value);
-let phoneValid = phoneField.value.trim().length >= 10;
+let phoneValid = isValidPhone(phoneField.value);
 
 const fnameError = document.getElementById('fnameError');
 const lnameError = document.getElementById('lnameError');
@@ -262,7 +262,7 @@ const phoneError = document.getElementById('phoneError');
 fnameError.textContent = fnameValid ? '' : '*First Name is required';
 lnameError.textContent = lnameValid ? '' : '*Last Name is required';
 emailError.textContent = emailValid ? '' : '*Please enter a valid email address';
-phoneError.textContent = phoneValid ? '' : '*Phone number must be at least 10 characters';
+phoneError.textContent = phoneValid ? '' : '*Phone number must be 10 characters and Numeric only';
 
 if (fnameValid && lnameValid && emailValid && phoneValid) {
     submitBtn.style.display ="block";
@@ -274,6 +274,11 @@ if (fnameValid && lnameValid && emailValid && phoneValid) {
 function isValidEmail(email) {
 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+function isValidPhone(phone) {
+    return /^\d{10}$/.test(phone);
+}
+
 });
 </script>
 

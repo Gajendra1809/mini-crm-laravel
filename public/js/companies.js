@@ -10,7 +10,7 @@
              document.getElementById("edit-email").value = c.email;
              document.getElementById("edit-website").value = c.website;
              document.getElementById("edit-location").value = c.location;
-             // Set the action attribute of the form
+             // Setting the action attribute of the form
              document.getElementById("popup-form2").action =
                  "{{ route('company.update', '') }}/" + c.id;
              localStorage.setItem('id', c.id);

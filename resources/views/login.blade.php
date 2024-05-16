@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 
@@ -60,7 +61,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="email">
-                                    Email
+                                    Email*
                                 </label>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Email"
                                     required value="{{ old('email') }}" />
@@ -68,10 +69,10 @@
                                 @if($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
-                            </div>
+                            </div><br>
                             <div class="form-group">
                                 <label for="password">
-                                    Password
+                                    Password* <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
                                 </label>
                                 <input type="password" name="password" class="form-control" id="password"
                                     placeholder="Password" required value="{{ old('password') }}" />
@@ -79,6 +80,10 @@
                                 @if($errors->has('password'))
                                     <span
                                         class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
+                                @if(session()->has('passError'))
+                                    <span
+                                        class="text-danger">{{ session('passError') }}</span>
                                 @endif
                             </div><br>
                             <button id="loginBtn" class="btn btn-danger" type="submit">Login</button>
