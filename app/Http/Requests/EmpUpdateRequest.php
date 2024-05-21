@@ -35,6 +35,7 @@ class EmpUpdateRequest extends FormRequest
             'fname.required' => 'The First name field is required.',
             'lname.required' => 'The Last name field is required.',
             'email.email' => 'The email must be a valid email address.',
+            'email.unique' => 'This email already exists',
         ];
     }
 }

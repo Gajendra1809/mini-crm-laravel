@@ -89,7 +89,7 @@ class CompanyController extends Controller
         
         try {
         $company->save();
-        //NotificationJob::dispatch($company->email,$company->name);
+        NotificationJob::dispatch($company->email,$company->name);
         return redirect()->route('company.index')->with('success', 'Company created successfully');
         } catch(\Exception $e) {
         return redirect()->route('company.create')->withInput()->with('error', 'Company not created');
@@ -239,6 +239,5 @@ class CompanyController extends Controller
         } catch (\Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
-    }
-    
+    }   
 }
