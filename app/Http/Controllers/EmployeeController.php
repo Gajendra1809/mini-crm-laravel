@@ -60,7 +60,7 @@ class EmployeeController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
             }
-            return view('employeeDash');
+            return view('employeedash');
         }
     }
 
